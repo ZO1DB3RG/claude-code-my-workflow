@@ -6,6 +6,9 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Bash", "Task"]
 context: fork
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # Slide Excellence Review
 
 Run a comprehensive multi-dimensional review of lecture slides. Multiple agents analyze the file independently, then results are synthesized.

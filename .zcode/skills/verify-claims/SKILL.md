@@ -5,6 +5,9 @@ argument-hint: "[file-or-text-path] [--source <path-or-url>] [--no-fail-closed]"
 allowed-tools: ["Read", "Grep", "Glob", "Task", "Write"]
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # /verify-claims — Chain-of-Verification on a Draft
 
 Fact-check a draft using the **Post-Flight Verification protocol** ([`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md)).

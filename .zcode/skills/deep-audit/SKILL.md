@@ -13,6 +13,9 @@ allowed-tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "Task"]
 disable-model-invocation: true
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # /deep-audit — Repository Infrastructure Audit
 
 Run a comprehensive consistency audit across the entire repository, fix all issues found, and loop until clean.

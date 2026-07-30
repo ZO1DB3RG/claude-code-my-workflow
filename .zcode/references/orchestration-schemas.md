@@ -69,7 +69,7 @@ A synthesizer/editor/judge reduces lens findings — it must not **introduce** a
 
 1. After the judge produces its verdict, diff its CRITICAL/desk-reject reasons against the union of lens `findings`.
 2. Any CRITICAL the judge introduced that is **not traceable** to a lens finding is a **candidate hallucination**.
-3. Re-verify each candidate in a **fresh forked context** — spawn `claim-verifier` (`Task`, `context: fork`) with the claim + the artifact location it cites, per [`post-flight-verification.md`](../rules/post-flight-verification.md).
+3. Re-verify each candidate in a **fresh forked context** — spawn an `Agent` call running the `claim-verifier` persona (ZCode: fresh isolated context is the default subagent behavior; under Claude Code this was `Task`, `context: fork`) with the claim + the artifact location it cites, per [`post-flight-verification.md`](../rules/post-flight-verification.md).
    - Verifier confirms (grounded in a quote/location) → keep the CRITICAL; annotate `[JUDGE-ADDED, verified]`.
    - Verifier cannot ground it → **drop it to a flagged note**, tag `[JUDGE-HALLUCINATED]`, and **recompute the verdict** under §3 without it.
 4. A judge may always *downgrade* or *de-duplicate* lens findings freely; it may only *introduce* a blocking finding that survives the gate.

@@ -7,6 +7,9 @@ allowed-tools: ["Read", "Write", "Edit", "Bash", "Glob", "Task"]
 disable-model-invocation: true
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # Create a New TikZ Diagram
 
 Scaffold a diagram from `templates/tikz-snippets/`, check it against the prevention rules, compile standalone, run the reviewer with measurement citations, and loop until the diagram passes. Use this **instead of** writing TikZ from scratch; the snippets embed the invariants that `tikz-prevention.md` requires.

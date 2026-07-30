@@ -6,6 +6,9 @@ allowed-tools: ["Read", "Write", "Glob", "Grep", "Bash"]
 disable-model-invocation: true
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # /new-skill — Author a Convention-Compliant Skill
 
 Scaffold a new skill the way this template's gold-standard skills are written: a **deep module behind a simple interface** (Ousterhout, *A Philosophy of Software Design* — "deep modules": a small surface that hides substantial implementation). The user supplies a fuzzy intent; this skill interviews it into a tight spec, then writes `.zcode/skills/<name>/SKILL.md` with frontmatter and body that are mutually consistent — so `check-skill-integrity.py` and `check-surface-sync.sh` pass without a second pass.

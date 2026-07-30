@@ -5,6 +5,9 @@ argument-hint: "[eval-file(s)] [prior-plan-path] [--min-mentions N] [--no-verify
 allowed-tools: ["Read", "Write", "Grep", "Glob", "Bash", "Task"]
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # Respond to Evaluations
 
 Convert a semester's course evaluations into a defensible teaching-improvement plan. Cluster free-text comments into themes, weight each theme by how many independent students raised it, classify what to do about it, and draft specific changes pointed at the syllabus and deck — so next semester's revision is a checklist, not a vibe.

@@ -8,6 +8,9 @@ disable-model-invocation: true
 allowed-tools: ["Read", "Write", "Task"]
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # /preregister — Preregistration Document Generator
 
 Produce a registry-ready preregistration document. The user uploads it to a real registry (OSF / AsPredicted / AEA RCT Registry) — this skill writes the prose and structure, it does not submit anywhere.

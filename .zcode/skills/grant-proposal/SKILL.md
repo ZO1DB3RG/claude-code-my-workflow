@@ -6,6 +6,9 @@ disable-model-invocation: true
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # /grant-proposal — Research Grant Proposal Scaffolder
 
 Compose a funder-shaped grant proposal draft from primitives you already have: an `/interview-me` research spec supplies the science, `/data-management-plan` supplies the DMP, `/capture-environment` supplies the facilities/computational statement, and `/lit-review` supplies the prior-work framing. This skill structures and stitches — it does **not** submit anywhere, and it does not invent identification strategy where a spec is absent.

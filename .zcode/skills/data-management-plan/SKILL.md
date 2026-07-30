@@ -6,6 +6,9 @@ disable-model-invocation: true
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # `/data-management-plan` — Funder-Compliant DMP Generator
 
 Produce a Data Management Plan ready to paste into a funder portal. This skill writes the prose and structure; it does **not** submit anywhere. It is a **composition** skill — it folds the disclosure-avoidance / IRB rules from [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) and the environment + replication-package plan from `/capture-environment` and `/replication-package` into a single funder-shaped document.

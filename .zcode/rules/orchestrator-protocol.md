@@ -1,6 +1,14 @@
 # Orchestrator Protocol: the review runtime
 
-**The review-fix loop is a real runtime contract, expressed with the primitive every Claude Code session has: the `Task` subagent.** Skills fan out to forked reviewers, reduce their *structured* findings ([`orchestration-schemas.md`](../references/orchestration-schemas.md)) through a deterministic gate, judge with a hallucination guard, and loop until dry. What is *not* automatic is the **trigger**: nothing launches this loop on its own — the user (or a skill invocation) starts it. That boundary is deliberate (see "What is NOT automatic").
+**The review-fix loop is a real runtime contract, expressed with the primitive every ZCode session has: the `Agent` subagent.** Skills fan out to forked reviewers, reduce their *structured* findings ([`orchestration-schemas.md`](../references/orchestration-schemas.md)) through a deterministic gate, judge with a hallucination guard, and loop until dry. What is *not* automatic is the **trigger**: nothing launches this loop on its own — the user (or a skill invocation) starts it. That boundary is deliberate (see "What is NOT automatic").
+
+> **ZCode adaptation note.** The original Claude-Code template expressed this
+> runtime with the `Task` tool and an explicit `context: fork` flag. ZCode's
+> tool is named **`Agent`** (the harness auto-aliases `Task` ↔ `Agent`), and
+> **fresh/forked context is the default subagent behavior** — there is no
+> `context` parameter; every spawned agent gets its own isolated child session.
+> So "fan-out in parallel" + "fresh context per reviewer" is achieved with
+> plain parallel `Agent` tool calls. See the primitives below.
 
 ## The loop (the contract)
 
@@ -32,9 +40,42 @@ These four primitives are the runtime. Every fan-out skill is a composition of t
 
 ### 1. Fan-out
 
-Spawn the reviewers **in parallel in a single message** — N `Task` calls, each `context: fork` so the main thread stays clean and each reviewer gets full budget for its lens. `Task` subagents are the **portable primitive**: they exist in every Claude Code install, so the template depends on them, not on the session-gated Workflow tool. *(Where the Workflow tool is available — e.g. an `ultracode`/dynamic-workflow session — a skill may use it for the same fan-out→reduce→judge shape; treat that as an optional accelerator, never a requirement.)*
+Spawn the reviewers **in parallel in a single message** — N `Agent` tool calls
+in one assistant message. Each runs concurrently and returns its report to the
+caller. **Fresh isolated context is the default**: every ZCode subagent gets
+its own child session with no inheritance of the parent's history, so the main
+thread stays clean and each reviewer gets the full context budget for its lens.
+(There is no `context` parameter to set — fork is the only behavior.)
 
-Which agent fills which lens, at which model tier, is in [`agent-fleet.md`](../references/agent-fleet.md).
+Which agent fills which lens is in [`agent-fleet.md`](../references/agent-fleet.md).
+
+**Spawning a *named* specialist agent.** ZCode ships two built-in
+`subagent_type` values — `general-purpose` (full tools) and `Explore`
+(read-only). The template's 18 specialists (`editor`, `methods-referee`,
+`claim-verifier`, …) are **not** registered as custom `subagent_type`s by
+default; custom types in ZCode require shipping a plugin's `agents/` directory.
+This fork uses **persona injection (Plan B)** instead — the default, lowest-
+friction path:
+
+- Spawn each specialist as `subagent_type: general-purpose`.
+- In the `Agent` call's `prompt`, **prepend the specialist's full system
+  prompt** (the body of its `.zcode/agents/<name>.md`, i.e. its persona,
+  role, report format, and any "what would change my mind" / output-schema
+  requirements). The agent's `tools:` field is honored by inlining an
+  equivalent tool restriction in the prompt where needed; for read-only
+  reviewers, `subagent_type: Explore` is a stricter choice that guarantees
+  no writes.
+- Give the prompt the artifact path + the lens rubric, exactly as the
+  original `Task` call would have via `subagent_type`.
+
+**Plan A (optional upgrade):** package `.zcode/agents/` as a local plugin
+(`.zcode-plugin/plugin.json` with an `agents` component field) so the 18
+specialists become real `subagent_type` values. Adopt this only if persona
+injection proves insufficient; it is more setup for the same effect.
+
+> Constraint: subagents must not load the `browser-use:control-browser` skill
+> (main-agent-only). Reviewers that need browser work hand it back to the
+> main agent.
 
 ### 2. Reduce (typed, not eyeballed)
 
@@ -42,7 +83,7 @@ Each reviewer returns `FINDING`s and a `SCORECARD` in the shared schema. The syn
 
 ### 3. Judge + hallucination gate
 
-A synthesizer/editor may freely *downgrade* or *de-duplicate* lens findings, but any **CRITICAL it introduces that no lens raised** must survive the post-judge hallucination gate ([`orchestration-schemas.md` §4](../references/orchestration-schemas.md)): re-verify it in a fresh `claim-verifier` fork; if it can't be grounded, drop it to `[JUDGE-HALLUCINATED]` and recompute. This is what makes an autonomous review trustworthy next to a credibility-sensitive artifact.
+A synthesizer/editor may freely *downgrade* or *de-duplicate* lens findings, but any **CRITICAL it introduces that no lens raised** must survive the post-judge hallucination gate ([`orchestration-schemas.md` §4](../references/orchestration-schemas.md)): re-verify it in a fresh `Agent` call running the `claim-verifier` persona (persona injection — see Fan-out §1); if it can't be grounded, drop it to `[JUDGE-HALLUCINATED]` and recompute. This is what makes an autonomous review trustworthy next to a credibility-sensitive artifact.
 
 ### 4. Loop-until-dry
 
@@ -86,7 +127,7 @@ When the user says "just do it" / "handle it" (within an already-invoked skill):
 ## Cross-references
 
 - [`.zcode/references/orchestration-schemas.md`](../references/orchestration-schemas.md) — FINDING / SCORECARD / RUN_CONFIG / hallucination-gate contracts.
-- [`.zcode/references/agent-fleet.md`](../references/agent-fleet.md) — the reviewer fleet + model tiers.
+- [`.zcode/references/agent-fleet.md`](../references/agent-fleet.md) — the reviewer fleet + role weights (single-model: tiers are persona weights, not model pins).
 - [`.zcode/rules/plan-first-workflow.md`](plan-first-workflow.md) — when to enter plan mode before invoking a skill.
 - [`.zcode/rules/quality-gates.md`](quality-gates.md) — threshold definitions + the pre-commit hook.
 - [`.zcode/rules/post-flight-verification.md`](post-flight-verification.md) — the forked-verifier mechanism the hallucination gate reuses.

@@ -5,6 +5,9 @@ argument-hint: "[file, script, or short description of the symptom] [--no-fix]"
 allowed-tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash", "Task"]
 ---
 
+> **ZCode execution overlay.** This skill's prose uses Claude-Code fan-out vocabulary (`Task`, `subagent_type=<specialist>`, `context: fork`). In ZCode, translate per [`.zcode/references/zcode-execution-overlay.md`](../references/zcode-execution-overlay.md): spawn parallel `Agent` calls (fresh context is the default); for a named specialist, inject that agent's `.zcode/agents/<name>.md` persona into the prompt (`subagent_type: general-purpose`, or `Explore` for read-only reviewers). All other logic is unchanged.
+
+
 # /diagnose — Root-Cause a Wrong or Failing Result
 
 Find *why* an analysis errors, returns the wrong number, or won't reconcile — with a structured debugging loop rather than scattershot edits. Adapted from the `diagnose` pattern in [mattpocock/skills](https://github.com/mattpocock/skills), reshaped for empirical research code where the bug is usually a *silent* wrong number, not a crash.

@@ -34,7 +34,7 @@ Cross-session context lives in [MEMORY.md](MEMORY.md); past plans, specs, and se
 
 ```
 [YOUR-PROJECT]/
-├── CLAUDE.MD                    # This file
+├── AGENTS.md                    # This file
 ├── .zcode/                     # Rules, skills, agents, hooks
 ├── Bibliography_base.bib        # Centralized bibliography
 ├── Figures/                     # Figures and images
@@ -91,7 +91,7 @@ Enforced by `/commit` (halts + asks for override) **and** — once you run `./sc
 
 ## Skills Quick Reference
 
-The full table of all skills lives in [README.md](README.md#skills-claudeskills). Most-used, by workflow:
+The full table of all skills lives in [README.md](README.md). Most-used, by workflow:
 
 - **Slides / teaching:** `/create-lecture` `/compile-latex` `/deploy` `/qa-quarto` `/slide-excellence` `/syllabus` `/teach-from-paper` `/scaffold-exercises`
 - **Papers / review:** `/review-paper` (`--peer`) `/seven-pass-review` `/respond-to-referees` `/verify-claims` `/proofread` `/humanize` `/submission-disclosures`

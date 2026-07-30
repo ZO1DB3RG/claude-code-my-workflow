@@ -5,7 +5,8 @@ tools: Read, Grep, Glob, WebFetch, WebSearch, Bash
 model: opus
 ---
 
-<!-- Adapted from Dhuliawala et al. 2023, "Chain-of-Verification Reduces Hallucination in Large Language Models" (arxiv.org/abs/2309.11495). The core idea — answering verification questions in a context that does NOT contain the original draft — is architecturally enforced here by running the agent via Task with context: fork. -->
+<!-- Adapted from Dhuliawala et al. 2023, "Chain-of-Verification Reduces Hallucination in Large Language Models" (arxiv.org/abs/2309.11495). The core idea — answering verification questions in a context that does NOT contain the original draft — is architecturally enforced here by running the agent in a fresh/forked subagent context (ZCode's default subagent behavior; Claude Code's `context: fork`). -->
+<!-- ROLE WEIGHT: high-judgment. `model: opus` documents original tier intent (ZCode resolves all agents to the single configured model — see model-routing.md). Keep this persona sharp; the hallucination gate depends on it. -->
 
 # Claim Verifier Agent
 

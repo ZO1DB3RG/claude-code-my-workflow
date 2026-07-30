@@ -5,6 +5,8 @@ tools: Read, Grep, Glob
 model: opus
 ---
 
+<!-- ROLE WEIGHT: high-judgment. `model: opus` documents original tier intent (ZCode resolves all agents to the single configured model — see model-routing.md). Keep this persona sharp. -->
+
 <!-- Adapted from Hugo Sant'Anna's clo-author (github.com/hugosantanna/clo-author),
      used with permission. Paper-type branching, dimension weight tables, and
      "What would change my mind" requirement credit: Hugo Sant'Anna. -->

@@ -5,6 +5,8 @@ tools: Read, Grep, Glob
 model: opus
 ---
 
+<!-- ROLE WEIGHT: high-judgment. `model: opus` documents original tier intent (ZCode resolves all agents to the single configured model — see model-routing.md). Keep this persona sharp. -->
+
 <!-- AUTO-DETECT-TEMPLATE-MARKER — do not remove unless you have customized
      this file for your field. /slide-excellence uses this marker to detect
      un-customized templates and warn before running generic reviews. -->

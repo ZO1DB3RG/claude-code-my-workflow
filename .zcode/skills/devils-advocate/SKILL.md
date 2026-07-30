@@ -10,13 +10,12 @@ allowed-tools: ["Read", "Grep", "Glob"]
 Critically examine a slide deck and challenge its design with 5-7 specific pedagogical questions.
 
 **Philosophy:** "We arrive at the best possible presentation through active dialogue."
-
 ---
 
 ## Setup
 
 1. **Read the target file** (the lecture being challenged)
-2. **Read the knowledge base** in `.claude/rules/` for notation conventions and narrative arc
+2. **Read the knowledge base** in `.zcode/rules/` for notation conventions and narrative arc
 3. If applicable, **read adjacent lectures** for narrative continuity
 
 ---

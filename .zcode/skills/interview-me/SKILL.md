@@ -10,7 +10,6 @@ allowed-tools: ["Read", "Write", "Task"]
 Conduct a structured interview to help formalize a research idea into a concrete specification.
 
 **Input:** `$ARGUMENTS` — a brief topic description or "start fresh" for an open-ended exploration.
-
 ---
 
 ## How This Works
@@ -26,7 +25,7 @@ This is a **conversational** skill. Instead of producing a report immediately, y
 ### Phase 1: The Big Picture (1-2 questions)
 - "What phenomenon or puzzle are you trying to understand?"
 - "Why does this matter? Who should care about the answer?"
-- After the user answers, optionally ask: "Do you have a sense of what *kind* of paper this would be — reduced-form / structural / theory+empirics / descriptive / formal-theory / survey-experiment / unsure?" (See `.claude/agents/methods-referee.md` for the type definitions and `.claude/references/discipline-cards.md` for field-default frequencies.) Record the answer in the saved spec under the `**Paper type:**` header field; "unsure" is fine and is recorded as `**Paper type:** unsure`.
+- After the user answers, optionally ask: "Do you have a sense of what *kind* of paper this would be — reduced-form / structural / theory+empirics / descriptive / formal-theory / survey-experiment / unsure?" (See `.zcode/agents/methods-referee.md` for the type definitions and `.zcode/references/discipline-cards.md` for field-default frequencies.) Record the answer in the saved spec under the `**Paper type:**` header field; "unsure" is fine and is recorded as `**Paper type:** unsure`.
 
 ### Phase 2: Theoretical Motivation (1-2 questions)
 - "What's your intuition for why X happens / what drives Y?"
@@ -105,7 +104,7 @@ Once you have enough information (typically 5-8 exchanges), produce a **Research
 
 ## Post-Flight Verification (mandatory, CoVe — applies when the spec cites prior work)
 
-The research spec's **Motivation** and **Contribution** sections typically reference prior papers by author + year. Those citations are hallucination-prone. Before saving the spec, run the Post-Flight Verification protocol from [`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) if the spec contains any citations.
+The research spec's **Motivation** and **Contribution** sections typically reference prior papers by author + year. Those citations are hallucination-prone. Before saving the spec, run the Post-Flight Verification protocol from [`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) if the spec contains any citations.
 
 ### Steps (skip if the spec cites zero papers)
 

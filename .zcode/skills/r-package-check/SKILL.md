@@ -6,7 +6,6 @@ version: 1.0.0
 argument-hint: "[path to package root, or blank to autodetect from DESCRIPTION]"
 disable-model-invocation: true
 allowed-tools: ["Read", "Grep", "Glob", "Bash", "Task", "Monitor"]
-effort: high
 ---
 
 # `/r-package-check` — R Package Release Gate
@@ -19,7 +18,7 @@ Run the document → test → check → triage pipeline that decides whether an 
 
 ## Constraints
 
-- **Follow [`.claude/rules/r-package-conventions.md`](../../rules/r-package-conventions.md)** — the CRAN-readiness bar (0 errors, 0 warnings, explained notes) is the gate.
+- **Follow [`.zcode/rules/r-package-conventions.md`](../../rules/r-package-conventions.md)** — the CRAN-readiness bar (0 errors, 0 warnings, explained notes) is the gate.
 - **Treat `man/` and `NAMESPACE` as generated** — regenerate with `devtools::document()`; never hand-edit them.
 - **Run the `r-package-reviewer` agent** on the source before declaring the package releasable.
 - **Do not bump the version or write to CRAN.** This skill *checks*; the human decides when to submit.

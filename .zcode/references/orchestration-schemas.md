@@ -2,7 +2,7 @@
 
 The skills that fan out to reviewer subagents (`/seven-pass-review`, `/slide-excellence`, `/qa-quarto`, `/deep-audit`, `/review-paper --adversarial` and `--peer`) used to describe their findings as free-form markdown the synthesizer re-parsed by eye. This file is the **shared structured contract** they reduce over instead — so a synthesizer counts typed objects, a gate predicate is a deterministic check, and the same severity vocabulary means the same thing in every skill.
 
-This is a **reference**, not a runtime: a Claude Code session has no JSON validator in the loop. The schemas are the *target shape* each reviewer subagent returns (as a fenced ```yaml block at the end of its report) and the synthesizer reads. See [`.claude/rules/orchestrator-protocol.md`](../rules/orchestrator-protocol.md) for how the fan-out → reduce → judge → loop-until-dry runtime uses them.
+This is a **reference**, not a runtime: a Claude Code session has no JSON validator in the loop. The schemas are the *target shape* each reviewer subagent returns (as a fenced ```yaml block at the end of its report) and the synthesizer reads. See [`.zcode/rules/orchestrator-protocol.md`](../rules/orchestrator-protocol.md) for how the fan-out → reduce → judge → loop-until-dry runtime uses them.
 
 ---
 
@@ -101,7 +101,7 @@ Gather it, echo it back as the **Pre-Flight Report**, and only then spawn the fl
 
 ## Cross-references
 
-- [`.claude/rules/orchestrator-protocol.md`](../rules/orchestrator-protocol.md) — the runtime that consumes these schemas.
-- [`.claude/references/agent-fleet.md`](agent-fleet.md) — which agent fills which lens, at which model tier.
-- [`.claude/rules/post-flight-verification.md`](../rules/post-flight-verification.md) — the forked-verifier mechanism the §4 gate reuses.
-- [`.claude/rules/summary-parity.md`](../rules/summary-parity.md) — the two-strikes rule the loop reuses for repeatedly-flagged findings.
+- [`.zcode/rules/orchestrator-protocol.md`](../rules/orchestrator-protocol.md) — the runtime that consumes these schemas.
+- [`.zcode/references/agent-fleet.md`](agent-fleet.md) — which agent fills which lens, at which model tier.
+- [`.zcode/rules/post-flight-verification.md`](../rules/post-flight-verification.md) — the forked-verifier mechanism the §4 gate reuses.
+- [`.zcode/rules/summary-parity.md`](../rules/summary-parity.md) — the two-strikes rule the loop reuses for repeatedly-flagged findings.

@@ -10,12 +10,11 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "WebSearch", "WebFetch", "Task"
 Generate structured research questions, testable hypotheses, and empirical strategies from a topic, phenomenon, or dataset.
 
 **Input:** `$ARGUMENTS` — a topic (e.g., "minimum wage effects on employment"), a phenomenon (e.g., "why do firms cluster geographically?"), or a dataset description (e.g., "panel of US counties with pollution and health outcomes, 2000-2020").
-
 ---
 
 ## Steps
 
-1. **Understand the input.** Read `$ARGUMENTS` and any referenced files. Check `master_supporting_docs/` for related papers. Check `.claude/rules/` for domain conventions.
+1. **Understand the input.** Read `$ARGUMENTS` and any referenced files. Check `master_supporting_docs/` for related papers. Check `.zcode/rules/` for domain conventions.
 
 2. **Generate 3-5 research questions** ordered from descriptive to causal:
    - **Descriptive:** What are the patterns? (e.g., "How has X evolved over time?")
@@ -33,7 +32,7 @@ Generate structured research questions, testable hypotheses, and empirical strat
    - `survey-experiment` (vignette, conjoint, list-experiment)
    - `unsure` (when multiple types are plausible — the user can pick later via `/interview-me`)
 
-   Use `.claude/references/discipline-cards.md` to bias the distribution by field (econ vs poli-sci default frequencies differ — e.g., poli-sci skews more toward `survey-experiment` and `formal-theory` than econ does).
+   Use `.zcode/references/discipline-cards.md` to bias the distribution by field (econ vs poli-sci default frequencies differ — e.g., poli-sci skews more toward `survey-experiment` and `formal-theory` than econ does).
 
 4. **For each research question, develop:**
    - **Hypothesis:** A testable prediction with expected sign/magnitude
@@ -108,7 +107,7 @@ Generate structured research questions, testable hypotheses, and empirical strat
 
 ## Post-Flight Verification (mandatory, CoVe)
 
-Before returning the ideation report, run the Post-Flight Verification protocol from [`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md). Research ideation is hallucination-prone in three specific ways:
+Before returning the ideation report, run the Post-Flight Verification protocol from [`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md). Research ideation is hallucination-prone in three specific ways:
 
 1. **Negative-literature claims** — "no prior work studies X" is frequently wrong.
 2. **Dataset structure claims** — "The CPS contains field `educ_attain`" can be confidently wrong about variable names, coverage years, or restricted-access status.

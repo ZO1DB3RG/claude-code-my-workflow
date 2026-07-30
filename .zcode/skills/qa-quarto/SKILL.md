@@ -11,7 +11,6 @@ context: fork
 Compare Quarto HTML slides against their Beamer PDF benchmark using an iterative critic/fixer loop.
 
 **Philosophy:** The Beamer PDF is the gold standard. The Quarto translation must be at least as good in every dimension.
-
 ---
 
 ## Workflow

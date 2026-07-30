@@ -3,7 +3,7 @@ name: new-diagram
 description: Scaffold a new TikZ diagram from the snippet gallery with prevention rules pre-applied (explicit node dimensions, coordinate map, directional edge labels). Compiles standalone, invokes tikz-reviewer with citations from tikz-measurement.md, and loops on revisions until APPROVED.
 argument-hint: "[snippet-name] [output.tex] (both optional; interactive if omitted)"
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Glob", "Task"]
-effort: high
+
 disable-model-invocation: true
 ---
 
@@ -134,8 +134,8 @@ Writing TikZ from scratch reliably produces collisions because the author cannot
 
 ## Cross-references
 
-- [`.claude/rules/tikz-prevention.md`](../../rules/tikz-prevention.md) — the P1–P6 authoring rules.
-- [`.claude/rules/tikz-measurement.md`](../../rules/tikz-measurement.md) — the six-pass protocol with formulas the reviewer cites.
-- [`.claude/rules/tikz-visual-quality.md`](../../rules/tikz-visual-quality.md) — general visual standards.
-- [`.claude/skills/extract-tikz/SKILL.md`](../extract-tikz/SKILL.md) — for pulling TikZ out of an existing Beamer deck instead of creating new.
+- [`.zcode/rules/tikz-prevention.md`](../../rules/tikz-prevention.md) — the P1–P6 authoring rules.
+- [`.zcode/rules/tikz-measurement.md`](../../rules/tikz-measurement.md) — the six-pass protocol with formulas the reviewer cites.
+- [`.zcode/rules/tikz-visual-quality.md`](../../rules/tikz-visual-quality.md) — general visual standards.
+- [`.zcode/skills/extract-tikz/SKILL.md`](../extract-tikz/SKILL.md) — for pulling TikZ out of an existing Beamer deck instead of creating new.
 - [`templates/tikz-snippets/README.md`](../../../templates/tikz-snippets/README.md) — gallery inventory and adaptation guide.

@@ -4,12 +4,11 @@ description: Draft a funder-compliant Data Management Plan (NSF DMP, NIH DMS Pol
 argument-hint: "[--funder nsf|nih|erc|horizon] [--input <spec-or-proposal>] [--no-verify]"
 disable-model-invocation: true
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
-effort: medium
 ---
 
 # `/data-management-plan` — Funder-Compliant DMP Generator
 
-Produce a Data Management Plan ready to paste into a funder portal. This skill writes the prose and structure; it does **not** submit anywhere. It is a **composition** skill — it folds the disclosure-avoidance / IRB rules from [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) and the environment + replication-package plan from `/capture-environment` and `/replication-package` into a single funder-shaped document.
+Produce a Data Management Plan ready to paste into a funder portal. This skill writes the prose and structure; it does **not** submit anywhere. It is a **composition** skill — it folds the disclosure-avoidance / IRB rules from [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) and the environment + replication-package plan from `/capture-environment` and `/replication-package` into a single funder-shaped document.
 
 ## When to use
 
@@ -63,7 +62,7 @@ For any required field the input does not supply, write `[CLARIFY: <specific que
 
 ### Phase 2 — Fold in disclosure-avoidance + IRB constraints (only if `sensitive = true`)
 
-Pull the relevant rules from [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) and weave them into the **access & sharing** and **preservation** sections:
+Pull the relevant rules from [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) and weave them into the **access & sharing** and **preservation** sections:
 
 - **Restricted data → describe the access path, not the data.** State the data provider, the DUA/restricted-use agreement, and how a replicator obtains access (e.g., FSRDC application, openICPSR restricted-access tier, provider application). The data itself is *not* deposited; the *path to it* is.
 - **Human-subjects → IRB + minimization.** Reference the IRB protocol number (or `[CLARIFY:]`), the consent terms governing sharing, and the de-identification plan. Shared outputs are de-identified per the consent.
@@ -109,13 +108,13 @@ The **funder checklist** is a table: each required section → present? → comp
 
 ## Cross-references
 
-- [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data / IRB / disclosure-avoidance rules folded in at Phase 2.
-- `.claude/skills/disclosure-check/SKILL.md` — pre-release disclosure scan the plan commits released outputs to.
-- `.claude/skills/capture-environment/SKILL.md` — the environment-capture mechanism Phase 3 references.
-- `.claude/skills/replication-package/SKILL.md` — the replication-package builder Phase 3 commits to.
-- `.claude/skills/grant-proposal/SKILL.md` — calls this skill for the proposal's data-management section.
-- [`.claude/skills/preregister/SKILL.md`](../preregister/SKILL.md) — sibling document-generator; shares the MUST/`[CLARIFY:]` + post-flight conventions.
-- [`.claude/rules/replication-protocol.md`](../../rules/replication-protocol.md) — the reproducibility contract the deposited package must satisfy.
+- [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data / IRB / disclosure-avoidance rules folded in at Phase 2.
+- `.zcode/skills/disclosure-check/SKILL.md` — pre-release disclosure scan the plan commits released outputs to.
+- `.zcode/skills/capture-environment/SKILL.md` — the environment-capture mechanism Phase 3 references.
+- `.zcode/skills/replication-package/SKILL.md` — the replication-package builder Phase 3 commits to.
+- `.zcode/skills/grant-proposal/SKILL.md` — calls this skill for the proposal's data-management section.
+- [`.zcode/skills/preregister/SKILL.md`](../preregister/SKILL.md) — sibling document-generator; shares the MUST/`[CLARIFY:]` + post-flight conventions.
+- [`.zcode/rules/replication-protocol.md`](../../rules/replication-protocol.md) — the reproducibility contract the deposited package must satisfy.
 
 ## What this skill does NOT do
 

@@ -3,7 +3,6 @@ name: seven-pass-review
 description: Mechanize Pattern 15 — the seven-pass adversarial review protocol for academic manuscripts. Spawns 7 forked subagents in parallel (abstract, intro, methods, results, robustness, prose, citations), then synthesizes a prioritized revision checklist. Use for submission-ready or R&R-stage papers where single-pass review isn't enough.
 argument-hint: "[manuscript path]"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Bash", "Task"]
-effort: high
 ---
 
 # Seven-Pass Adversarial Review
@@ -141,9 +140,9 @@ For cheaper alternatives:
 
 ## Cross-references
 
-- `.claude/skills/review-paper/SKILL.md` — the single-pass and `--adversarial` modes (cheaper, faster).
-- `.claude/skills/validate-bib/SKILL.md` — invoked by Lens 7.
-- `.claude/skills/audit-reproducibility/SKILL.md` — complementary; numeric-claims side of the audit.
+- `.zcode/skills/review-paper/SKILL.md` — the single-pass and `--adversarial` modes (cheaper, faster).
+- `.zcode/skills/validate-bib/SKILL.md` — invoked by Lens 7.
+- `.zcode/skills/audit-reproducibility/SKILL.md` — complementary; numeric-claims side of the audit.
 - Workflow guide, Pattern 15 — the narrative explanation of why seven lenses.
 
 ## Exit behavior

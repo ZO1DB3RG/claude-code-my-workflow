@@ -10,16 +10,15 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "Edit", "Bash", "Task", "Monito
 Run an end-to-end data analysis in R: load, explore, analyze, and produce publication-ready output.
 
 **Input:** `$ARGUMENTS` — a dataset path (e.g., `data/county_panel.csv`) or a description of the analysis goal (e.g., "regress wages on education with state fixed effects using CPS data").
-
 ---
 
 ## Constraints
 
-- **Follow R code conventions** in `.claude/rules/r-code-conventions.md`
+- **Follow R code conventions** in `.zcode/rules/r-code-conventions.md`
 - **Save all scripts** to `scripts/R/` with descriptive names
 - **Save all outputs** (figures, tables, RDS) to `output/`
 - **Use `saveRDS()`** for every computed object — Quarto slides may need them
-- **Use project theme** for all figures (check for custom theme in `.claude/rules/`)
+- **Use project theme** for all figures (check for custom theme in `.zcode/rules/`)
 - **Run r-reviewer** on the generated script before presenting results
 
 ---
@@ -42,8 +41,8 @@ Output block (in your response to the user, before Phase 1):
 - Missing-data summary: [% missing per key var]
 
 **Project conventions read:**
-- `.claude/rules/r-code-conventions.md` — [one-line summary of most relevant rule]
-- `.claude/rules/content-invariants.md` — [INV-9, INV-10, INV-11, INV-12 applicable]
+- `.zcode/rules/r-code-conventions.md` — [one-line summary of most relevant rule]
+- `.zcode/rules/content-invariants.md` — [INV-9, INV-10, INV-11, INV-12 applicable]
 
 **Task interpretation:** [one sentence restating what the user asked for]
 

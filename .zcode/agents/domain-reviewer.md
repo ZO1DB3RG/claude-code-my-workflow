@@ -3,7 +3,6 @@ name: domain-reviewer
 description: Substantive domain review for lecture slides. Template agent — customize the 5 review lenses for your field. Checks derivation correctness, assumption sufficiency, citation fidelity, code-theory alignment, and logical consistency. Use after content is drafted or before teaching.
 tools: Read, Grep, Glob
 model: opus
-effort: high
 ---
 
 <!-- AUTO-DETECT-TEMPLATE-MARKER — do not remove unless you have customized
@@ -99,7 +98,7 @@ For every claim attributed to a specific paper:
 **Cross-reference with:**
 - The project bibliography file
 - Papers in `master_supporting_docs/supporting_papers/` (if available)
-- The knowledge base in `.claude/rules/` (if it has a notation/citation registry)
+- The knowledge base in `.zcode/rules/` (if it has a notation/citation registry)
 
 ---
 

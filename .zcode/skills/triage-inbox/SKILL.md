@@ -4,7 +4,6 @@ description: Triage academic email and calendar (Gmail / Google Calendar via the
 argument-hint: "[--since <Ndays|date>] [--cap <N>] [--no-calendar] [--dry-run]"
 disable-model-invocation: true
 allowed-tools: ["Read", "Write", "Glob", "Bash"]
-effort: medium
 ---
 
 # /triage-inbox — Academic Inbox + Calendar Triage
@@ -104,12 +103,12 @@ Plus the one-line chat summary: digest path, counts per bucket, open-reviews-vs-
 
 ## Cross-references
 
-- [`.claude/skills/coauthor-brief/SKILL.md`](../coauthor-brief/SKILL.md) — the handoff brief offered for co-author threads.
-- [`.claude/skills/respond-to-referees/SKILL.md`](../respond-to-referees/SKILL.md) — drafts the R&R response document once a revision deadline surfaces here.
+- [`.zcode/skills/coauthor-brief/SKILL.md`](../coauthor-brief/SKILL.md) — the handoff brief offered for co-author threads.
+- [`.zcode/skills/respond-to-referees/SKILL.md`](../respond-to-referees/SKILL.md) — drafts the R&R response document once a revision deadline surfaces here.
 - `/new-referee-project` — scaffolds a review repo from an accepted referee request (the action this skill proposes, never auto-runs).
 - `/schedule` — wire this skill into a cron routine; the human-gated design is what makes unattended runs safe.
-- [`.claude/rules/orchestrator-protocol.md`](../../rules/orchestrator-protocol.md) — the "no daemon, user/skill-initiated, human-in-the-loop" contract this skill honors for outbound actions.
-- [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) — never copy attachment contents, restricted data, or credentials into a digest that may be committed.
+- [`.zcode/rules/orchestrator-protocol.md`](../../rules/orchestrator-protocol.md) — the "no daemon, user/skill-initiated, human-in-the-loop" contract this skill honors for outbound actions.
+- [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) — never copy attachment contents, restricted data, or credentials into a digest that may be committed.
 
 ## What this skill does NOT do
 

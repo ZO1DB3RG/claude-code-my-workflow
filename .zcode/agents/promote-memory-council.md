@@ -1,6 +1,6 @@
 ---
 name: promote-memory-council
-description: Five-critic council that votes YES/NO on whether candidate `[LEARN]` entries should be promoted from `.claude/state/personal-memory.md` (gitignored) to MEMORY.md (committed). Each critic reviews one dimension — generality, staleness, redundancy, evidence, format — in an isolated forked context. Invoked by `/promote-memory`.
+description: Five-critic council that votes YES/NO on whether candidate `[LEARN]` entries should be promoted from `.zcode/state/personal-memory.md` (gitignored) to MEMORY.md (committed). Each critic reviews one dimension — generality, staleness, redundancy, evidence, format — in an isolated forked context. Invoked by `/promote-memory`.
 tools: Read, Grep, Glob
 model: haiku
 ---
@@ -46,12 +46,12 @@ For every file path, function name, command, setting, or rule referenced in the 
 
 ### Redundancy critic
 
-**Your question:** Is this lesson already encoded in MEMORY.md, CLAUDE.md, or an existing rule?
+**Your question:** Is this lesson already encoded in MEMORY.md, AGENTS.md, or an existing rule?
 
 **Vote NO** when:
 - The same lesson appears in MEMORY.md (even paraphrased).
-- The lesson is codified in a rule file (`.claude/rules/*.md`).
-- CLAUDE.md already pins the behaviour as a project principle.
+- The lesson is codified in a rule file (`.zcode/rules/*.md`).
+- AGENTS.md already pins the behaviour as a project principle.
 - The lesson is a sub-case of a broader rule already in effect.
 
 **Vote YES** when:
@@ -74,7 +74,7 @@ For every file path, function name, command, setting, or rule referenced in the 
 
 ### Format critic
 
-**Your question:** Does the entry follow the schema in [`.claude/rules/meta-governance.md`](../rules/meta-governance.md)?
+**Your question:** Does the entry follow the schema in [`.zcode/rules/meta-governance.md`](../rules/meta-governance.md)?
 
 **Vote NO** when:
 - Corrections aren't in `[LEARN:category] wrong → right` shape.

@@ -3,7 +3,6 @@ name: replication-package
 description: Assemble a submission-ready replication package to the AEA Data and Code Availability Standard (DCAS) / openICPSR / Social Science Reproduction Platform expectations — standard replication README, dataset manifest, computational-requirements capture, a Table/Figure → script:line map, and a confidential-data deposit plan. Use when user says "build the replication package", "prepare the openICPSR deposit", "make the AEA data and code package", "DCAS compliance", "assemble the deposit for the journal", or after a paper is accepted and the journal's data editor needs the package. NOT a numeric verifier — it calls /audit-reproducibility to confirm claims reproduce before packaging.
 argument-hint: "[manuscript path] [outputs-dir] (outputs-dir defaults to scripts/R/_outputs/)"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Bash", "Task"]
-effort: high
 ---
 
 # Replication Package
@@ -78,7 +77,7 @@ Then emit the **DCAS compliance checklist** (`replication_package/DCAS_checklist
 
 ### Phase 5: Confidential-data handling
 
-Per [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md), scan the manifest for restricted, proprietary, or PII-bearing inputs (administrative records, IRS/Census RDC, proprietary panels, linked health data).
+Per [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md), scan the manifest for restricted, proprietary, or PII-bearing inputs (administrative records, IRS/Census RDC, proprietary panels, linked health data).
 
 - **Never copy restricted data into `replication_package/data/`.** Replace it with a pointer: the provider, the application/DUA process, the access cost, and the expected wait time.
 - Generate `replication_package/data/access-restricted-data.md` — the access-restricted-data note a reproducer follows to obtain the same inputs.
@@ -119,13 +118,13 @@ replication_package/  (tree + README + checklist)
 
 ## Cross-references
 
-- [`.claude/rules/replication-protocol.md`](../../rules/replication-protocol.md) — tolerance contract + passport schema (the upstream verification this skill packages).
-- [`.claude/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) — the Phase 3 gate; proves claims reproduce.
-- [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data deposit rules driving Phase 5.
+- [`.zcode/rules/replication-protocol.md`](../../rules/replication-protocol.md) — tolerance contract + passport schema (the upstream verification this skill packages).
+- [`.zcode/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) — the Phase 3 gate; proves claims reproduce.
+- [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data deposit rules driving Phase 5.
 - [`templates/passport-template.yaml`](../../../templates/passport-template.yaml) — source of the Table/Figure → program:line map when present.
-- [`.claude/skills/data-analysis/SKILL.md`](../data-analysis/SKILL.md) · [`.claude/skills/stata-replication/SKILL.md`](../stata-replication/SKILL.md) — the R / Stata pipelines whose outputs this skill packages.
-- [`.claude/skills/simulation-study/SKILL.md`](../simulation-study/SKILL.md) — seeded Monte Carlo outputs are packaged the same way (seeds + per-rep raw results belong in `output/`).
-- [`.claude/skills/preregister/SKILL.md`](../preregister/SKILL.md) — for RCTs, the PAP belongs in the deposit alongside the analysis.
+- [`.zcode/skills/data-analysis/SKILL.md`](../data-analysis/SKILL.md) · [`.zcode/skills/stata-replication/SKILL.md`](../stata-replication/SKILL.md) — the R / Stata pipelines whose outputs this skill packages.
+- [`.zcode/skills/simulation-study/SKILL.md`](../simulation-study/SKILL.md) — seeded Monte Carlo outputs are packaged the same way (seeds + per-rep raw results belong in `output/`).
+- [`.zcode/skills/preregister/SKILL.md`](../preregister/SKILL.md) — for RCTs, the PAP belongs in the deposit alongside the analysis.
 
 ## What this skill does NOT do
 

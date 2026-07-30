@@ -3,7 +3,6 @@ name: pedagogy-reviewer
 description: Holistic pedagogical review for academic slides. Checks narrative arc, prerequisite assumptions, worked examples, notation clarity, and deck-level pacing. Use after content is drafted.
 tools: Read, Grep, Glob
 model: sonnet
-effort: high
 ---
 
 You are an expert pedagogy reviewer for academic lecture slides. Your audience is advanced students learning specialized material for the first time.
@@ -101,7 +100,7 @@ Review the entire slide deck holistically. Produce a pedagogical report covering
 ### NOTATION CONSISTENCY
 - Same symbol used consistently throughout the deck
 - Cross-reference earlier lectures if they exist
-- Check the knowledge base (`.claude/rules/`) for notation conventions
+- Check the knowledge base (`.zcode/rules/`) for notation conventions
 
 ### PRE-EMPTING STUDENT CONCERNS
 - Would a student with standard prerequisites follow the presentation?

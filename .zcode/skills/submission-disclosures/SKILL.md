@@ -3,7 +3,6 @@ name: submission-disclosures
 description: Generate the submission-time disclosure block for a manuscript — the AI-use disclosure statement matched to the target journal's policy, CRediT author-contribution roles, conflict-of-interest statement, and data-availability statement. Use when the user says "AI disclosure", "disclosure statement", "do I need to disclose Claude", "CRediT roles", "conflict of interest statement", "data availability statement", or is preparing a submission package. NOT statistical-disclosure screening of restricted-data outputs — that is /disclosure-check.
 argument-hint: "[manuscript path] [journal short-name, e.g. AER] [--no-ai | --statements-only]"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "WebSearch", "WebFetch"]
-effort: medium
 ---
 
 # /submission-disclosures — The Submission-Time Disclosure Block
@@ -28,7 +27,7 @@ Draft the four statements journals now require (or strongly expect) at submissio
 
 ### Phase 2 — Inventory what was actually used
 
-Interview briefly (or infer from the repo when evident — e.g. `quality_reports/`, session logs, a CLAUDE.md):
+Interview briefly (or infer from the repo when evident — e.g. `quality_reports/`, session logs, a AGENTS.md):
 
 - **Which tools** (Claude Code, Copilot, ChatGPT, Grammarly-class) and **for what**: writing/editing prose, code authoring, code review, literature search, data analysis, translation.
 - **What stayed human**: research design, identification choices, interpretation, final verification of every number and citation (tie to the repo's own verification story — `/audit-reproducibility`, `/verify-claims` — when true, *say so*: "all AI-assisted numbers were independently verified against code" is a strength, not a confession).
@@ -62,11 +61,11 @@ Grep the manuscript for an existing acknowledgments/disclosure section; flag con
 
 ## Cross-references
 
-- [`.claude/skills/disclosure-check/SKILL.md`](../disclosure-check/SKILL.md) — statistical-disclosure screening of restricted-data outputs (the other "disclosure"; unrelated).
-- [`.claude/skills/replication-package/SKILL.md`](../replication-package/SKILL.md) — the deposit the data-availability statement must match.
-- [`.claude/references/journal-profiles.md`](../../references/journal-profiles.md) — per-journal calibration, incl. the AEA DCAS policy note.
-- [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data constraints on what the statements can say.
-- [`.claude/skills/humanize/SKILL.md`](../humanize/SKILL.md) — detecting AI-voice in prose; disclosure and voice are separate obligations.
+- [`.zcode/skills/disclosure-check/SKILL.md`](../disclosure-check/SKILL.md) — statistical-disclosure screening of restricted-data outputs (the other "disclosure"; unrelated).
+- [`.zcode/skills/replication-package/SKILL.md`](../replication-package/SKILL.md) — the deposit the data-availability statement must match.
+- [`.zcode/references/journal-profiles.md`](../../references/journal-profiles.md) — per-journal calibration, incl. the AEA DCAS policy note.
+- [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data constraints on what the statements can say.
+- [`.zcode/skills/humanize/SKILL.md`](../humanize/SKILL.md) — detecting AI-voice in prose; disclosure and voice are separate obligations.
 
 ## What this skill does NOT do
 

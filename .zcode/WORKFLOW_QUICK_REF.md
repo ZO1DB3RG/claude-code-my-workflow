@@ -77,7 +77,7 @@ For experimental work, use the **Fast-Track** workflow:
 - Work in `explorations/` folder
 - 60/100 quality threshold (vs. 80/100 for production)
 - No plan needed — just a research value check (2 min)
-- See `.claude/rules/exploration-fast-track.md`
+- See `.zcode/rules/exploration-fast-track.md`
 
 ---
 

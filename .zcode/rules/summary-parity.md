@@ -3,9 +3,9 @@ paths:
   - "CHANGELOG.md"
   - "README.md"
   - "**/*.qmd"
-  - ".claude/skills/*/SKILL.md"
-  - ".claude/rules/*.md"
-  - ".claude/agents/*.md"
+  - ".zcode/skills/*/SKILL.md"
+  - ".zcode/rules/*.md"
+  - ".zcode/agents/*.md"
 alwaysApply: false
 ---
 
@@ -43,7 +43,7 @@ If a reviewer flags the same summary paragraph **twice in a row** (even on diffe
 |------------------------|------------------------|
 | "No new skills, no new rules, no new hooks" | "No new directories on disk" |
 | "27 skills / 13 agents / 22 rules / 6 hooks" | "On-disk inventory unchanged — see README for counts" |
-| "Edits to `.claude/agents/X.md` and `.claude/skills/Y/SKILL.md`" | "Existing infrastructure revised" |
+| "Edits to `.zcode/agents/X.md` and `.zcode/skills/Y/SKILL.md`" | "Existing infrastructure revised" |
 | "Fixes Copilot finding #3 and Codex finding #7" | "Addresses pre-merge review" |
 
 The specific form is more informative when fresh but more likely to rot. The abstract form stays true across edits.
@@ -64,5 +64,5 @@ In each case, two strikes means the *artifact is the wrong shape*, not that the 
 ## Cross-references
 
 - `MEMORY.md` — `[LEARN:audit]` on summary-body whack-a-mole (the originating incident: three consecutive Copilot findings on the v1.6.1 CHANGELOG opening paragraph, PRs #88–#90).
-- `.claude/skills/commit/SKILL.md` — when writing the commit message for a doc-heavy PR, apply this rule to the `## Summary` section before pushing.
-- `.claude/skills/audit-reproducibility/SKILL.md` — "Repeated EXPLAINED is a signal (two-strikes)" reuses this pattern for contested numeric claims.
+- `.zcode/skills/commit/SKILL.md` — when writing the commit message for a doc-heavy PR, apply this rule to the `## Summary` section before pushing.
+- `.zcode/skills/audit-reproducibility/SKILL.md` — "Repeated EXPLAINED is a signal (two-strikes)" reuses this pattern for contested numeric claims.

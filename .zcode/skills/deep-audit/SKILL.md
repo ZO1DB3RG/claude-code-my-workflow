@@ -44,7 +44,7 @@ If Phase 0 reports P0 or P1 findings, fix them (or tune the regex if they are fa
 
 ### PHASE 1: Launch 4 Parallel Audit Agents
 
-Launch these 4 agents simultaneously using `Task` with `subagent_type=general-purpose`. Each agent's prompt **must** tell it to read `.claude/references/audit-pet-peeves.md` and explicitly check for each class of bug before reporting clean. The pet-peeves file is a living catalogue of drift patterns review bots have caught; it grows with each PR.
+Launch these 4 agents simultaneously using `Task` with `subagent_type=general-purpose`. Each agent's prompt **must** tell it to read `.zcode/references/audit-pet-peeves.md` and explicitly check for each class of bug before reporting clean. The pet-peeves file is a living catalogue of drift patterns review bots have caught; it grows with each PR.
 
 #### Agent 1: Guide Content Accuracy
 Focus: `guide/workflow-guide.qmd`
@@ -56,11 +56,11 @@ Focus: `guide/workflow-guide.qmd`
 - No stale counts from previous versions
 
 #### Agent 2: Executable Code Quality
-Focus: **all** executable code in the repo — `.claude/hooks/*.py`, `.claude/hooks/*.sh`, `scripts/*.py`, `scripts/*.sh`, `.claude/scripts/*.sh`. Not just `.claude/hooks/` — when PR #93 added new code under `scripts/`, the original narrow scope meant Copilot + Codex caught 5 bugs the audit missed.
+Focus: **all** executable code in the repo — `.zcode/hooks/*.py`, `.zcode/hooks/*.sh`, `scripts/*.py`, `scripts/*.sh`, `.zcode/scripts/*.sh`. Not just `.zcode/hooks/` — when PR #93 added new code under `scripts/`, the original narrow scope meant Copilot + Codex caught 5 bugs the audit missed.
 
-Hook-specific checks (Stop/PreToolUse/SessionStart protocols, `CLAUDE_PROJECT_DIR` usage, hash-length consistency) apply only to `.claude/hooks/`. Everything below applies to ALL executable code:
+Hook-specific checks (Stop/PreToolUse/SessionStart protocols, `CLAUDE_PROJECT_DIR` usage, hash-length consistency) apply only to `.zcode/hooks/`. Everything below applies to ALL executable code:
 
-- No remaining `/tmp/` usage in anything that manages state (should use `~/.claude/sessions/`)
+- No remaining `/tmp/` usage in anything that manages state (should use `~/.zcode/sessions/`)
 - Hash length consistency (`[:8]` across all hooks) [hooks only]
 - Proper error handling — **fail-open pattern** where the docstring promises it (top-level `try/except` with `sys.exit(0)`). Python `read_text()` must catch `UnicodeError` (not just `OSError`) if the script is promised fail-open for corrupt files. Bash `set -u` without `set -e` or explicit post-command checks does NOT catch command failures — verify.
 - **Docstring-claim ↔ implementation parity.** If a function's docstring describes "bidirectional parity" / "fail-open" / "exits 1 on X", the implementation must match. Common drift: one-directional implementation of a claimed-bidirectional contract; exit codes documented as one thing but returning another.
@@ -75,7 +75,7 @@ Hook-specific checks (Stop/PreToolUse/SessionStart protocols, `CLAUDE_PROJECT_DI
 - PreCompact hooks print to stderr (stdout is ignored)
 
 #### Agent 3: Skills and Rules Consistency
-Focus: `.claude/skills/*/SKILL.md` and `.claude/rules/*.md`
+Focus: `.zcode/skills/*/SKILL.md` and `.zcode/rules/*.md`
 - Valid YAML frontmatter in all files
 - No stale `disable-model-invocation: true`
 - `allowed-tools` values are sensible
@@ -83,8 +83,8 @@ Focus: `.claude/skills/*/SKILL.md` and `.claude/rules/*.md`
 - **Rule `paths:` scope matches skill implementation.** If rule X lists skill Y in `paths:`, verify skill Y actually implements the protocol rule X mandates. A rule claiming a skill follows a protocol is meaningless if the skill doesn't.
 - Rule `paths:` reference existing directories
 - No contradictions between rules
-- CLAUDE.md skills table matches actual skill directories 1:1
-- All templates referenced in `.claude/rules/*.md` and the guide (`guide/workflow-guide.qmd`) exist in `templates/`
+- AGENTS.md skills table matches actual skill directories 1:1
+- All templates referenced in `.zcode/rules/*.md` and the guide (`guide/workflow-guide.qmd`) exist in `templates/`
 
 #### Agent 4: Cross-Document Consistency
 Focus: `README.md`, `docs/index.html`, `docs/workflow-guide.html`
@@ -146,7 +146,7 @@ These are real bugs found across 7 rounds — check for these specifically:
 | Stale counts ("19 skills" → "21") | Guide, README, landing page | Added skills but didn't update all mentions |
 | Hook exit codes | All Python hooks | Exit 2 in PreCompact silently discards stdout |
 | Hook field names | post-compact-restore.py | SessionStart uses `source`, not `type` |
-| State in /tmp/ | All Python hooks | Should use `~/.claude/sessions/<hash>/` |
+| State in /tmp/ | All Python hooks | Should use `~/.zcode/sessions/<hash>/` |
 | Hash length mismatch | All Python hooks | Some used `[:12]`, others `[:8]` |
 | Missing fail-open | Python hooks `__main__` | Unhandled exception → exit 1 → confusing behavior |
 | Python 3.10+ syntax | Type hints like `dict | None` | Need `from __future__ import annotations` |

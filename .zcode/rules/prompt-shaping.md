@@ -13,7 +13,7 @@ Before executing a non-trivial informal request, resolve these five things (the 
 5. **Output format** — exactly what to return (a report? a diff? a table? a plan?).
 6. **Bookend** — restate the goal at the end and confirm it was met.
 
-Full elaboration and examples: [`.claude/references/prompt-formatting-core.md`](../references/prompt-formatting-core.md).
+Full elaboration and examples: [`.zcode/references/prompt-formatting-core.md`](../references/prompt-formatting-core.md).
 
 ## How to apply it
 
@@ -27,6 +27,6 @@ The `/prompt` skills reformatted an informal ask into a six-section prompt — u
 
 ## Cross-references
 
-- [`.claude/references/prompt-formatting-core.md`](../references/prompt-formatting-core.md) — the six-section elaboration.
-- [`.claude/skills/interview-me/SKILL.md`](../skills/interview-me/SKILL.md) — multi-turn specification (the surviving, heavier sibling).
-- [`.claude/rules/plan-first-workflow.md`](plan-first-workflow.md) — for non-trivial tasks, shaping feeds the plan.
+- [`.zcode/references/prompt-formatting-core.md`](../references/prompt-formatting-core.md) — the six-section elaboration.
+- [`.zcode/skills/interview-me/SKILL.md`](../skills/interview-me/SKILL.md) — multi-turn specification (the surviving, heavier sibling).
+- [`.zcode/rules/plan-first-workflow.md`](plan-first-workflow.md) — for non-trivial tasks, shaping feeds the plan.

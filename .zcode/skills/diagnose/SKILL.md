@@ -3,7 +3,6 @@ name: diagnose
 description: Root-cause a failing or wrong empirical result with a disciplined reproduce → minimise → hypothesise → instrument → fix loop, instead of guessing-and-poking. Use when the user says "why is my regression wrong", "this number changed", "my script errors out", "the result won't reproduce", "debug this", "this estimate looks wrong", or "it worked yesterday". Tuned for research code (R/Stata/Python): type coercion, NA/merge blow-ups, factor levels, clustering/SE choices, weighting, collinearity/convergence, seeds, package-version drift. Use `--no-fix` to localize the root cause without editing shared or load-bearing files.
 argument-hint: "[file, script, or short description of the symptom] [--no-fix]"
 allowed-tools: ["Read", "Write", "Edit", "Grep", "Glob", "Bash", "Task"]
-effort: high
 ---
 
 # /diagnose — Root-Cause a Wrong or Failing Result
@@ -178,11 +177,11 @@ The usual-suspects model is illustrated in R but the bug *classes* are language-
 
 ## Cross-references
 
-- [`.claude/skills/review-r/SKILL.md`](../review-r/SKILL.md) — code-quality review with no specific symptom (diagnose is symptom-driven).
-- [`.claude/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) — verify all numeric claims against code; diagnose localizes a *single* failing one (and is the natural hand-off from a FAIL).
-- [`.claude/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) — snapshot the environment when version/seed drift is the suspect.
-- [`.claude/rules/replication-protocol.md`](../../rules/replication-protocol.md) — the tolerance contract that defines "same number", and the "If Mismatch" hand-off to this skill.
-- [`.claude/rules/orchestrator-protocol.md`](../../rules/orchestrator-protocol.md) — the fan-out primitive used for competing-hypothesis testing in Phase 3.
+- [`.zcode/skills/review-r/SKILL.md`](../review-r/SKILL.md) — code-quality review with no specific symptom (diagnose is symptom-driven).
+- [`.zcode/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) — verify all numeric claims against code; diagnose localizes a *single* failing one (and is the natural hand-off from a FAIL).
+- [`.zcode/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) — snapshot the environment when version/seed drift is the suspect.
+- [`.zcode/rules/replication-protocol.md`](../../rules/replication-protocol.md) — the tolerance contract that defines "same number", and the "If Mismatch" hand-off to this skill.
+- [`.zcode/rules/orchestrator-protocol.md`](../../rules/orchestrator-protocol.md) — the fan-out primitive used for competing-hypothesis testing in Phase 3.
 
 ## What this skill does NOT do
 

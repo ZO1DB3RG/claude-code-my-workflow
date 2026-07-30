@@ -87,13 +87,13 @@ R chunks:     none
 
 ## Step 3: Domain-reviewer customization check (MANDATORY for .tex)
 
-Before spawning the substance-review agent on a `.tex` file, verify `.claude/agents/domain-reviewer.md` has been customized for this project. The ship-state domain-reviewer is a **template** — running it unmodified produces generic "are assumptions stated?" feedback, not real domain review.
+Before spawning the substance-review agent on a `.tex` file, verify `.zcode/agents/domain-reviewer.md` has been customized for this project. The ship-state domain-reviewer is a **template** — running it unmodified produces generic "are assumptions stated?" feedback, not real domain review.
 
 Detection heuristic (any of these → still template):
 
 - Contains the marker token `AUTO-DETECT-TEMPLATE-MARKER` anywhere in the file (present in the shipped template; removed/replaced when customized). Detection is a substring match — the marker can span lines.
 - Contains any `<!-- Customize: ... -->` or `[Customize: ...]` placeholder (both forms are checked).
-- The five lenses are identical to the shipped template's wording (diff against `.claude/agents/domain-reviewer.md` on the v1.3.0 tag — if zero lines changed, it's still template).
+- The five lenses are identical to the shipped template's wording (diff against `.zcode/agents/domain-reviewer.md` on the v1.3.0 tag — if zero lines changed, it's still template).
 
 If the template marker is present:
 
@@ -103,7 +103,7 @@ If the template marker is present:
 Running it in its shipped state produces generic checks ("are assumptions
 stated?") rather than field-specific review. Options:
 
-  1. Customize .claude/agents/domain-reviewer.md — replace the 5 lenses
+  1. Customize .zcode/agents/domain-reviewer.md — replace the 5 lenses
      with checks for your field. The /configure-project skill will scaffold
      this interactively (coming in PR D of the plan).
   2. Run slide-excellence with --skip-substance to proceed without the

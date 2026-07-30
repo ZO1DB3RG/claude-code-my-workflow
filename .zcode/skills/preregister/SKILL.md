@@ -125,11 +125,11 @@ Include the registry URL: OSF → `osf.io/registries`, AsPredicted → `aspredic
 
 - `templates/preregistration-template.md` — the three style templates this skill consumes.
 - `templates/requirements-spec.md` — MUST/SHOULD/MAY annotation language re-used here.
-- `.claude/skills/interview-me/SKILL.md` — produces the spec this skill consumes via `--input`.
-- `.claude/skills/power-analysis/SKILL.md` — supplies the MDE / required-N + power paragraph for the sample-plan field (RCTs).
-- `.claude/skills/verify-claims/SKILL.md` — Phase 5 invokes this for citation post-flight.
-- `.claude/references/discipline-cards.md` — field defaults that drive `--style` selection.
-- `.claude/rules/replication-protocol.md` — preregistration is the *forward* commitment; replication-protocol is the *backward* contract.
+- `.zcode/skills/interview-me/SKILL.md` — produces the spec this skill consumes via `--input`.
+- `.zcode/skills/power-analysis/SKILL.md` — supplies the MDE / required-N + power paragraph for the sample-plan field (RCTs).
+- `.zcode/skills/verify-claims/SKILL.md` — Phase 5 invokes this for citation post-flight.
+- `.zcode/references/discipline-cards.md` — field defaults that drive `--style` selection.
+- `.zcode/rules/replication-protocol.md` — preregistration is the *forward* commitment; replication-protocol is the *backward* contract.
 
 ## Examples
 

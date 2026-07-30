@@ -4,7 +4,6 @@ description: Scaffold a research grant proposal (NSF, NIH, ERC, or foundation) b
 argument-hint: "[--funder nsf|nih|erc|foundation] [--input <spec>] [--out <dir>] [--no-verify]"
 disable-model-invocation: true
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Task"]
-effort: high
 ---
 
 # /grant-proposal — Research Grant Proposal Scaffolder
@@ -64,7 +63,7 @@ For every MUST slot the spec did not supply, write `[CLARIFY: <specific question
 
 ### Phase 2 — Compose the DMP and computational statements (delegate)
 
-1. **Data Management (& Sharing) Plan** — invoke [`/data-management-plan`](../data-management-plan/SKILL.md) via `Task` with the funder + data sources from the spec. It returns the DMP section (repository choice — openICPSR / Dataverse / Zenodo, access/retention, FAIR/DCAS alignment). If any data source is sensitive (restricted-use admin data, PII, IRB-restricted), have it honor [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) and describe access via a secure enclave / FSRDC rather than open release. **Do not draft a sharing plan that promises to release confidential data.**
+1. **Data Management (& Sharing) Plan** — invoke [`/data-management-plan`](../data-management-plan/SKILL.md) via `Task` with the funder + data sources from the spec. It returns the DMP section (repository choice — openICPSR / Dataverse / Zenodo, access/retention, FAIR/DCAS alignment). If any data source is sensitive (restricted-use admin data, PII, IRB-restricted), have it honor [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) and describe access via a secure enclave / FSRDC rather than open release. **Do not draft a sharing plan that promises to release confidential data.**
 2. **Facilities / Computational-Environment statement** — invoke [`/capture-environment`](../capture-environment/SKILL.md) via `Task` to produce the compute/software/dependency statement (cluster, R/Stata/Python toolchain, `renv.lock` / `DESCRIPTION` / `requirements.txt` provenance) for the Facilities section.
 
 If a delegate skill is unavailable, leave a `[DELEGATE: /data-management-plan]` placeholder rather than half-writing its output.
@@ -81,7 +80,7 @@ The differentiating step. Cross-check the assembled draft and report mismatches:
 
 ### Phase 4 — Post-flight verification + output
 
-- **Post-flight (CoVe):** if Background/Significance cites prior literature, run the Post-Flight protocol from [`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) — spawn `claim-verifier` via `Task` (`context: fork`) on the citations. Surface PASS / PARTIAL / FAIL. Skip on `--no-verify` or zero citations.
+- **Post-flight (CoVe):** if Background/Significance cites prior literature, run the Post-Flight protocol from [`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) — spawn `claim-verifier` via `Task` (`context: fork`) on the citations. Surface PASS / PARTIAL / FAIL. Skip on `--no-verify` or zero citations.
 - **Write** sections to `--out` (default `quality_reports/grants/YYYY-MM-DD_<slug>/`), one Markdown file per section plus `checklist.md`.
 
 ## Output / Report format
@@ -128,13 +127,13 @@ Claims extracted: N · Verified: N · Outcome: PASS / PARTIAL / FAIL
 
 ## Cross-references
 
-- [`.claude/skills/interview-me/SKILL.md`](../interview-me/SKILL.md) — produces the research spec this skill consumes; run it first if none exists.
-- [`.claude/skills/data-management-plan/SKILL.md`](../data-management-plan/SKILL.md) — Phase 2 delegate for the DMP/DMSP section.
-- [`.claude/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) — Phase 2 delegate for the facilities/computational statement.
-- [`.claude/skills/lit-review/SKILL.md`](../lit-review/SKILL.md) — supplies Background & Significance prior-work framing.
-- [`.claude/skills/preregister/SKILL.md`](../preregister/SKILL.md) — a PAP can seed the analysis plan; preregistration is the forward commitment a funded project then executes.
-- [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) — governs how sensitive data sources appear in the DMP and budget.
-- [`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) — Phase 4 citation fact-check.
+- [`.zcode/skills/interview-me/SKILL.md`](../interview-me/SKILL.md) — produces the research spec this skill consumes; run it first if none exists.
+- [`.zcode/skills/data-management-plan/SKILL.md`](../data-management-plan/SKILL.md) — Phase 2 delegate for the DMP/DMSP section.
+- [`.zcode/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) — Phase 2 delegate for the facilities/computational statement.
+- [`.zcode/skills/lit-review/SKILL.md`](../lit-review/SKILL.md) — supplies Background & Significance prior-work framing.
+- [`.zcode/skills/preregister/SKILL.md`](../preregister/SKILL.md) — a PAP can seed the analysis plan; preregistration is the forward commitment a funded project then executes.
+- [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) — governs how sensitive data sources appear in the DMP and budget.
+- [`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) — Phase 4 citation fact-check.
 
 ## What this skill does NOT do
 

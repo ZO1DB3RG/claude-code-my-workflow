@@ -10,7 +10,6 @@ allowed-tools: ["Read", "Grep", "Glob", "Write", "WebSearch", "WebFetch", "Task"
 Conduct a structured literature search and synthesis on the given topic.
 
 **Input:** `$ARGUMENTS` — a topic, paper title, research question, or phenomenon to investigate.
-
 ---
 
 ## Steps
@@ -94,7 +93,7 @@ Conduct a structured literature search and synthesis on the given topic.
 
 ## Post-Flight Verification (mandatory, CoVe)
 
-Before returning the draft literature review to the user, run the Post-Flight Verification protocol from [`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md). Literature reviews are **very high** hallucination risk because WebSearch can return plausible-sounding fabricated citations. CoVe catches this architecturally.
+Before returning the draft literature review to the user, run the Post-Flight Verification protocol from [`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md). Literature reviews are **very high** hallucination risk because WebSearch can return plausible-sounding fabricated citations. CoVe catches this architecturally.
 
 ### Steps
 

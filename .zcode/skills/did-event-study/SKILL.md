@@ -3,16 +3,15 @@ name: did-event-study
 description: Run a staggered difference-in-differences / event-study analysis to the Sant'Anna practitioner standard — drives the canonical packages (R `did`/`DRDID`/`didFF`/`contdid`; Stata `csdid`/`drdid`), enforces the doubly-robust default, a mandatory diagnostic + sensitivity suite, uniform-band inference, replicate-and-verify-against-source discipline, and ends in a graded credibility verdict. Use when user says "run a DiD", "event study", "staggered adoption", "Callaway Sant'Anna", "att_gt", "csdid", "did with multiple periods", or points at panel data with a treatment-timing variable. NEVER reimplements an estimator.
 argument-hint: "[data path] [--outcome --unit --time --gvar] [--control nevertreated|notyettreated] [--continuous] [--stata]"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Bash"]
-effort: high
 ---
 
 # /did-event-study — DiD / event study, Sant'Anna practitioner standard
 
 This is a **thin orchestrator over the canonical packages** — it never reimplements an estimator. It walks the practitioner workflow from *Difference-in-Differences with Multiple Time Periods* (Callaway & Sant'Anna 2021), the *Doubly Robust DiD* estimators (Sant'Anna & Zhao 2020), and the *"What's Trending in DiD?"* synthesis (Roth, Sant'Anna, Bilinski & Poe 2023), and it follows the **replicate-and-verify-against-source** discipline.
 
-> **Actor → Critic.** The skill is the *Actor*: it runs your packages and the diagnostics. It then puts on the *Critic* hat for **Phase 8 — a graded credibility verdict**, never a binary "passes." A mismatch with a pre-test is *evidence on credibility*, not a gate. (This actor/critic + mandatory-diagnostic + graded-credibility shape mirrors `.claude/rules/orchestrator-protocol.md` and the verification posture of `audit-reproducibility`.)
+> **Actor → Critic.** The skill is the *Actor*: it runs your packages and the diagnostics. It then puts on the *Critic* hat for **Phase 8 — a graded credibility verdict**, never a binary "passes." A mismatch with a pre-test is *evidence on credibility*, not a gate. (This actor/critic + mandatory-diagnostic + graded-credibility shape mirrors `.zcode/rules/orchestrator-protocol.md` and the verification posture of `audit-reproducibility`.)
 
-> **Read first:** [`.claude/rules/did-conventions.md`](../../rules/did-conventions.md) — the HARD standards this skill enforces (data coding, DR default, control group, inference, aggregation, verification, and the pitfalls to avoid). Then the canonical resources in §Resources.
+> **Read first:** [`.zcode/rules/did-conventions.md`](../../rules/did-conventions.md) — the HARD standards this skill enforces (data coding, DR default, control group, inference, aggregation, verification, and the pitfalls to avoid). Then the canonical resources in §Resources.
 
 The methodological defaults below reflect **Pedro Sant'Anna's sign-off**: `notyettreated` control default, HonestDiD led by relative-magnitudes `Mbar` (also report `M`), `staggered` as an option with `att_gt` the workhorse, TWFE benchmark-only.
 
@@ -158,5 +157,5 @@ Write to `scripts/R/_outputs/` (and `scripts/Stata/` if `--stata`): the master s
 - `--stata` — also run the Stata twin (`csdid`/`drdid`) for the dual-software cross-check.
 
 ## Cross-references
-- [`.claude/rules/did-conventions.md`](../../rules/did-conventions.md) — the enforceable standards.
-- [`.claude/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) · [`.claude/skills/replication-package/SKILL.md`](../replication-package/SKILL.md) · [`.claude/skills/power-analysis/SKILL.md`](../power-analysis/SKILL.md) · [`.claude/skills/simulation-study/SKILL.md`](../simulation-study/SKILL.md).
+- [`.zcode/rules/did-conventions.md`](../../rules/did-conventions.md) — the enforceable standards.
+- [`.zcode/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) · [`.zcode/skills/replication-package/SKILL.md`](../replication-package/SKILL.md) · [`.zcode/skills/power-analysis/SKILL.md`](../power-analysis/SKILL.md) · [`.zcode/skills/simulation-study/SKILL.md`](../simulation-study/SKILL.md).

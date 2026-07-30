@@ -341,8 +341,8 @@ The five profiles above are econ-specific. The **pipeline is field-agnostic** �
 
 ## Cross-references
 
-- `.claude/agents/editor.md` — reads this file.
-- `.claude/agents/domain-referee.md` — applies domain-referee adjustments.
-- `.claude/agents/methods-referee.md` — applies methods-referee adjustments.
-- `.claude/skills/review-paper/SKILL.md` — `--peer [journal]` mode entry point.
+- `.zcode/agents/editor.md` — reads this file.
+- `.zcode/agents/domain-referee.md` — applies domain-referee adjustments.
+- `.zcode/agents/methods-referee.md` — applies methods-referee adjustments.
+- `.zcode/skills/review-paper/SKILL.md` — `--peer [journal]` mode entry point.
 - `templates/journal-profile-template.md` — skeleton for adding your own.

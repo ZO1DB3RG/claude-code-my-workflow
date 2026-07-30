@@ -27,7 +27,7 @@ Produce a state snapshot that the next session (yours, or a collaborator's, or a
 
 ## When NOT to use
 
-- For the narrative *what happened* — that lives in `quality_reports/session_logs/` (see `.claude/rules/session-logging.md`).
+- For the narrative *what happened* — that lives in `quality_reports/session_logs/` (see `.zcode/rules/session-logging.md`).
 - For commit messages — those go through `/commit`, which writes its own structured commit body.
 - For decisions about alternatives — those go to `templates/decision-record.md` via `quality_reports/decisions/`.
 
@@ -71,7 +71,7 @@ status: in_progress | paused | ready-to-merge
 
 ## File pointers
 [Concrete `path:line` references to where the next session should resume. Aim for 3–8.]
-- `.claude/skills/checkpoint/SKILL.md:42` — body draft, needs trigger-phrase tightening
+- `.zcode/skills/checkpoint/SKILL.md:42` — body draft, needs trigger-phrase tightening
 - `quality_reports/plans/[slug].md:135` — verification section to refresh after impl
 - `CHANGELOG.md` — Unreleased section, v1.8.0 entry not yet drafted
 
@@ -105,7 +105,7 @@ Why: <one sentence on what makes this non-obvious>
 Apply where: <which future situations would benefit>
 ```
 
-If the user says "yes" / "all" / "1 and 3" — append to MEMORY.md (root, the committed one) using the `[LEARN]` format. If the candidate is machine-specific (paths, tool versions, personal preference), recommend the user route it to `.claude/state/personal-memory.md` instead per `.claude/rules/meta-governance.md`.
+If the user says "yes" / "all" / "1 and 3" — append to MEMORY.md (root, the committed one) using the `[LEARN]` format. If the candidate is machine-specific (paths, tool versions, personal preference), recommend the user route it to `.zcode/state/personal-memory.md` instead per `.zcode/rules/meta-governance.md`.
 
 Stay below 3 candidates. If you have more, the session was probably under-narrated — flag it and recommend a session-log update instead.
 
@@ -124,10 +124,10 @@ If memory candidates were proposed, summarise which (if any) the user accepted.
 
 ## Cross-references
 
-- `.claude/rules/session-logging.md` — narrative companion. **Do not duplicate** — the checkpoint references the latest session log by path; it does not re-tell the session story.
-- `.claude/rules/plan-first-workflow.md` — checkpoint reads the active plan; if no plan exists, recommend the user enter plan mode before invoking `/checkpoint`.
+- `.zcode/rules/session-logging.md` — narrative companion. **Do not duplicate** — the checkpoint references the latest session log by path; it does not re-tell the session story.
+- `.zcode/rules/plan-first-workflow.md` — checkpoint reads the active plan; if no plan exists, recommend the user enter plan mode before invoking `/checkpoint`.
 - `templates/decision-record.md` — for *why we chose A over B*, not for *where we are*.
-- `.claude/hooks/pre-compact.py` — when `CLAUDE_PRECOMPACT_BLOCK_ON_DRAFT=1` is set, the PreCompact hook will block compaction once per DRAFT plan. `/checkpoint` is the right thing to run when that block fires.
+- `.zcode/hooks/pre-compact.py` — when `CLAUDE_PRECOMPACT_BLOCK_ON_DRAFT=1` is set, the PreCompact hook will block compaction once per DRAFT plan. `/checkpoint` is the right thing to run when that block fires.
 
 ## Examples
 

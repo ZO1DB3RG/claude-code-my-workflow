@@ -1,7 +1,7 @@
 ---
 paths:
-  - ".claude/agents/**/*.md"
-  - ".claude/skills/**/SKILL.md"
+  - ".zcode/agents/**/*.md"
+  - ".zcode/skills/**/SKILL.md"
 ---
 
 # Per-Agent Model Routing (architect/editor split)
@@ -107,6 +107,6 @@ If a future contributor ever adds an explicit *challenger → auditor* step (e.g
 
 ## Cross-references
 
-- [`.claude/rules/cross-artifact-review.md`](cross-artifact-review.md) — paper ↔ code dependency graph (orthogonal to routing but invoked at similar moments).
-- [`.claude/rules/post-flight-verification.md`](post-flight-verification.md) — CoVe / forked verifier (claim-verifier should stay on Opus per "anti-pattern: pushing Opus down" above).
+- [`.zcode/rules/cross-artifact-review.md`](cross-artifact-review.md) — paper ↔ code dependency graph (orthogonal to routing but invoked at similar moments).
+- [`.zcode/rules/post-flight-verification.md`](post-flight-verification.md) — CoVe / forked verifier (claim-verifier should stay on Opus per "anti-pattern: pushing Opus down" above).
 - Guide section "Cost-Conscious Composition" — user-facing cost guidance that points at this rule.

@@ -2,7 +2,7 @@
 
 The 18 specialist subagents, what each is for, the model tier it runs at ([`model-routing.md`](../rules/model-routing.md)), and which skill dispatches it. This makes the fleet legible — when a fan-out skill picks a lens, this is the roster it picks from. Reviewers are **read-only** (they report `FINDING`s per [`orchestration-schemas.md`](orchestration-schemas.md)); only the fixer edits files.
 
-> **Keep this in sync** with `.claude/agents/*.md` frontmatter (`model:` / `effort:`) and with `model-routing.md`. The surface-sync gate counts agents; it does not yet diff this table row-for-row, so update it when you add or retier an agent. (It is a `references/` file, so it is not itself counted as an agent.)
+> **Keep this in sync** with `.zcode/agents/*.md` frontmatter (`model:` / `effort:`) and with `model-routing.md`. The surface-sync gate counts agents; it does not yet diff this table row-for-row, so update it when you add or retier an agent. (It is a `references/` file, so it is not itself counted as an agent.)
 
 ## High-judgment tier — Opus 4.8, effort: high
 
@@ -50,6 +50,6 @@ Only the referees (`domain-referee`, `methods-referee`) and the `editor` that as
 
 ## Cross-references
 
-- [`.claude/rules/model-routing.md`](../rules/model-routing.md) — the tiering rationale + the do-not-demote anti-pattern.
-- [`.claude/rules/orchestrator-protocol.md`](../rules/orchestrator-protocol.md) — how the fleet is fanned out, reduced, and judged.
-- [`.claude/references/orchestration-schemas.md`](orchestration-schemas.md) — the `FINDING`/`SCORECARD` shape every reviewer returns.
+- [`.zcode/rules/model-routing.md`](../rules/model-routing.md) — the tiering rationale + the do-not-demote anti-pattern.
+- [`.zcode/rules/orchestrator-protocol.md`](../rules/orchestrator-protocol.md) — how the fleet is fanned out, reduced, and judged.
+- [`.zcode/references/orchestration-schemas.md`](orchestration-schemas.md) — the `FINDING`/`SCORECARD` shape every reviewer returns.

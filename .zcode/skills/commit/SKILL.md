@@ -26,7 +26,7 @@ Spawn the **verifier** agent (via `Task` with `subagent_type=verifier`) to run c
 
 ### Step 0b: Surface-Sync Gate (Pre-Commit)
 
-**Runs unconditionally.** Enforces that count claims (`"14 agents, 28 skills, 24 rules, 6 hooks"` and siblings) across README.md, CLAUDE.md, the guide source + rendered HTML, the landing page, and the skill template all agree with the on-disk counts of `.claude/{skills,agents,rules,hooks}`:
+**Runs unconditionally.** Enforces that count claims (`"14 agents, 28 skills, 24 rules, 6 hooks"` and siblings) across README.md, AGENTS.md, the guide source + rendered HTML, the landing page, and the skill template all agree with the on-disk counts of `.zcode/{skills,agents,rules,hooks}`:
 
 ```bash
 ./scripts/check-surface-sync.sh
@@ -58,7 +58,7 @@ Add specific files (never use `git add -A`):
 git add <file1> <file2> ...
 ```
 
-Do NOT stage `.claude/settings.local.json` or any files containing secrets.
+Do NOT stage `.zcode/settings.local.json` or any files containing secrets.
 
 ### Step 4: Commit with a descriptive message
 

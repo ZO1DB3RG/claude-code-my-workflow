@@ -19,7 +19,7 @@ Produce a thorough, constructive review of an academic manuscript — the kind o
 **Input:** `$ARGUMENTS` — path to a paper (`.tex`, `.pdf`, or `.qmd`), or a filename in `master_supporting_docs/`. Optional flags:
 
 - `--adversarial` — critic-fixer loop (max 5 rounds).
-- `--peer <JOURNAL>` — simulated peer review pipeline calibrated to `<JOURNAL>` (see `.claude/references/journal-profiles.md` for available short names).
+- `--peer <JOURNAL>` — simulated peer review pipeline calibrated to `<JOURNAL>` (see `.zcode/references/journal-profiles.md` for available short names).
 - `--r2` / `--r3` — R&R continuation mode (requires `--peer`). Reloads prior round, classifies concerns Resolved / Partial / Not addressed.
 - `--stress` — hostile-editor stress test (requires `--peer`). Forces SKEPTIC dispositions, doubles critical peeves.
 - `--variance` (followed by integer **N**, default 3) — reviewer-disposition variance mode (requires `--peer`). Runs **N** referees with **independently sampled** dispositions from the 6-way taxonomy. Editor aggregates into a **decision distribution**, not a point estimate. Mutually exclusive with `--stress` and `--r2`/`--r3`.
@@ -27,7 +27,6 @@ Produce a thorough, constructive review of an academic manuscript — the kind o
 - `--no-cross-artifact` — skip auto-invocation of `/review-r` + `/audit-reproducibility` on referenced scripts.
 
 > **Already received referee comments?** Use [`/respond-to-referees`](../respond-to-referees/SKILL.md) instead. That skill cross-references each referee concern against the revised manuscript and drafts a complete response document.
-
 ---
 
 ## Modes
@@ -44,15 +43,15 @@ Use when: preparing a pre-submission draft, responding to a journal-desk rejecti
 
 ### Peer-review mode (`--peer <JOURNAL>`)
 
-Simulated editorial pipeline: **editor desk review → referee selection → 2 blind referees with different dispositions → editorial synthesis**. Calibrated to a target journal from `.claude/references/journal-profiles.md`. Use when: pre-submission dress rehearsal, choosing between target journals, R&R planning.
+Simulated editorial pipeline: **editor desk review → referee selection → 2 blind referees with different dispositions → editorial synthesis**. Calibrated to a target journal from `.zcode/references/journal-profiles.md`. Use when: pre-submission dress rehearsal, choosing between target journals, R&R planning.
 
 This mode is materially different from `--adversarial`: adversarial runs the same critic 5× with fresh context; `--peer` runs **different personas** (editor + 2 dispositioned referees drawn from 6-way taxonomy: STRUCTURAL / CREDIBILITY / MEASUREMENT / POLICY / THEORY / SKEPTIC) whose priors are *deliberately different* and who are blind to each other.
 
 **Agents used** (all reimplemented in this template; adapted from [Hugo Sant'Anna's clo-author](https://github.com/hugosantanna/clo-author) with permission):
 
-- `.claude/agents/editor.md` — editor (desk review, referee selection, synthesis).
-- `.claude/agents/domain-referee.md` — substance referee.
-- `.claude/agents/methods-referee.md` — methodology referee (paper-type-aware).
+- `.zcode/agents/editor.md` — editor (desk review, referee selection, synthesis).
+- `.zcode/agents/domain-referee.md` — substance referee.
+- `.zcode/agents/methods-referee.md` — methodology referee (paper-type-aware).
 
 **Sub-flags:**
 
@@ -95,7 +94,6 @@ Variance mode runs N independent referees (default N=3, max N=5 for token-cost d
 
 ---
 
-
 ## Steps (both modes)
 
 1. **Locate and read the manuscript.** First strip flags (`--adversarial`, `--no-cross-artifact`) from `$ARGUMENTS` to get the bare manuscript path. Check:
@@ -117,7 +115,7 @@ Variance mode runs N independent referees (default N=3, max N=5 for token-cost d
    - `/review-r` on each referenced script (forked subagent, results to `quality_reports/cross_artifact_[paper]/review_r_*.md`)
    - `/audit-reproducibility` on the manuscript + outputs dir (results to `quality_reports/cross_artifact_[paper]/reproducibility.md`)
 
-   Merge critical cross-artifact findings (code bug invalidates paper claim, reproducibility FAIL) into a new "Cross-Artifact Findings" section at the top of the paper review report. See [`.claude/rules/cross-artifact-review.md`](../../rules/cross-artifact-review.md) for the full protocol.
+   Merge critical cross-artifact findings (code bug invalidates paper claim, reproducibility FAIL) into a new "Cross-Artifact Findings" section at the top of the paper review report. See [`.zcode/rules/cross-artifact-review.md`](../../rules/cross-artifact-review.md) for the full protocol.
 
 7. **If `--adversarial` is in `$ARGUMENTS`:** invoke the critic-fixer loop defined in the next section. Otherwise stop here.
 
@@ -347,11 +345,11 @@ After the loop ends, write `quality_reports/paper_review_[sanitized_name]_FINAL.
 
 ### Phase 0: Cross-artifact pre-flight (runs BEFORE desk review in --peer mode)
 
-Unless `--no-cross-artifact` is set, auto-invoke `/audit-reproducibility` on the manuscript + its outputs directory *first*. Any reproducibility FAIL becomes desk-reject-worthy evidence the editor can cite. See `.claude/rules/cross-artifact-review.md`.
+Unless `--no-cross-artifact` is set, auto-invoke `/audit-reproducibility` on the manuscript + its outputs directory *first*. Any reproducibility FAIL becomes desk-reject-worthy evidence the editor can cite. See `.zcode/rules/cross-artifact-review.md`.
 
 Reports: `quality_reports/cross_artifact_[paper]/reproducibility.md`.
 
-**Novelty-probe Post-Flight (new in v1.7.0).** The editor's novelty probe uses `WebSearch` to check whether the paper's contribution has been made before. WebSearch results can be hallucinated — fabricated prior work, misattributed findings, wrong years. Before the editor's desk review incorporates novelty-probe claims into its decision, those claims must pass Post-Flight Verification per [`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md):
+**Novelty-probe Post-Flight (new in v1.7.0).** The editor's novelty probe uses `WebSearch` to check whether the paper's contribution has been made before. WebSearch results can be hallucinated — fabricated prior work, misattributed findings, wrong years. Before the editor's desk review incorporates novelty-probe claims into its decision, those claims must pass Post-Flight Verification per [`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md):
 
 1. The editor collects novelty-probe claims (e.g., "Smith 2022 already showed this exact result").
 2. Spawn `claim-verifier` via `Task` with `subagent_type=claim-verifier` and `context=fork`, passing the claims + verification questions + candidate source URLs. Forked fresh context is the CoVe independence trick.
@@ -365,19 +363,19 @@ Opt-out: `--no-novelty-check` already skips the probe entirely. If the probe run
 ## Pre-Flight Report — /review-paper --peer
 
 **Manuscript:** [path] — [page count, last modified]
-**Target journal:** [JOURNAL_SHORT] → [full name from `.claude/references/journal-profiles.md`]
-**Journal profile loaded:** [yes/no; resolved from `.claude/references/journal-profiles.md`; key adjustments: e.g., "Identification 35 → 40"]
+**Target journal:** [JOURNAL_SHORT] → [full name from `.zcode/references/journal-profiles.md`]
+**Journal profile loaded:** [yes/no; resolved from `.zcode/references/journal-profiles.md`; key adjustments: e.g., "Identification 35 → 40"]
 **Cross-artifact scripts found:** [list referenced .R / .py / .do files]
 **Reproducibility status:** [PASS / FAIL from Phase 0] — [N of M claims within tolerance]
 **Round:** [fresh / r2 / r3 / stress]
 ```
 
-If the manuscript path doesn't exist, the target journal isn't in `.claude/references/journal-profiles.md`, or a cross-artifact script is missing, stop and surface the issue before proceeding.
+If the manuscript path doesn't exist, the target journal isn't in `.zcode/references/journal-profiles.md`, or a cross-artifact script is missing, stop and surface the issue before proceeding.
 
 ### Phase 1: Editor desk review
 
 Spawn forked subagent `editor` with the manuscript path and `--peer <JOURNAL>` context. Editor:
-- Reads journal profile from `.claude/references/journal-profiles.md` → states "Calibrated to: [journal]".
+- Reads journal profile from `.zcode/references/journal-profiles.md` → states "Calibrated to: [journal]".
 - Reads abstract + intro + methods overview + headline results.
 - Runs novelty probes (unless `--no-novelty-check`).
 - Either **DESK REJECT** (pipeline terminates with rejection letter) or **SEND OUT**.
@@ -438,8 +436,8 @@ For non-econ paper types in `methods-referee.md`, extend the paper-type list (e.
 
 ## Cross-references
 
-- [`.claude/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) — numeric-claim verification (auto-invoked on referenced scripts).
-- [`.claude/skills/replication-package/SKILL.md`](../replication-package/SKILL.md) — assemble the AEA DCAS deposit once the paper passes review.
-- [`.claude/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) · [`.claude/skills/disclosure-check/SKILL.md`](../disclosure-check/SKILL.md) — environment capture + restricted-data screening for the deposit.
-- [`.claude/skills/seven-pass-review/SKILL.md`](../seven-pass-review/SKILL.md) — heavier 7-lens pass for submission-ready drafts.
+- [`.zcode/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) — numeric-claim verification (auto-invoked on referenced scripts).
+- [`.zcode/skills/replication-package/SKILL.md`](../replication-package/SKILL.md) — assemble the AEA DCAS deposit once the paper passes review.
+- [`.zcode/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) · [`.zcode/skills/disclosure-check/SKILL.md`](../disclosure-check/SKILL.md) — environment capture + restricted-data screening for the deposit.
+- [`.zcode/skills/seven-pass-review/SKILL.md`](../seven-pass-review/SKILL.md) — heavier 7-lens pass for submission-ready drafts.
 

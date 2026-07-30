@@ -11,7 +11,6 @@ context: fork
 Full translation of a Beamer LaTeX lecture to Quarto RevealJS HTML slides.
 
 **CRITICAL: The Beamer .tex file is the SINGLE SOURCE OF TRUTH.**
-
 ---
 
 ## Phase 0: Pre-Flight Checks
@@ -66,4 +65,4 @@ Render, open in browser, verify all elements.
 Apply any corrections back to Beamer source.
 
 ## Phase 11: Documentation
-Update CLAUDE.md, session log, create PR.
+Update AGENTS.md, session log, create PR.

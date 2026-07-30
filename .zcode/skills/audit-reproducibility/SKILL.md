@@ -3,12 +3,11 @@ name: audit-reproducibility
 description: Enforce the replication-protocol.md rule by cross-checking numeric claims in a manuscript against the actual R / Stata / Python outputs. Report PASS/FAIL per claim against tolerance thresholds. Use before submission and before releasing a replication package.
 argument-hint: "[manuscript path] [outputs-dir] (outputs-dir defaults to scripts/R/_outputs/)"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Bash", "Task", "Monitor"]
-effort: high
 ---
 
 # Audit Reproducibility
 
-Compare numeric claims in a manuscript (point estimates, standard errors, p-values, counts) against the actual outputs produced by the analysis pipeline. Report PASS / FAIL per claim against the tolerance thresholds defined in [`.claude/rules/replication-protocol.md`](../../rules/replication-protocol.md).
+Compare numeric claims in a manuscript (point estimates, standard errors, p-values, counts) against the actual outputs produced by the analysis pipeline. Report PASS / FAIL per claim against the tolerance thresholds defined in [`.zcode/rules/replication-protocol.md`](../../rules/replication-protocol.md).
 
 **Core principle:** If the paper says `ATT = -1.632 (0.584)` and the code produces `-1.628 (0.591)`, we verify — **numerically** — that the difference is within the documented tolerance. No more "looks close enough" eyeballing.
 
@@ -146,7 +145,7 @@ Write `quality_reports/reproducibility_audit_[manuscript-name].md`:
 **Date:** [YYYY-MM-DD]
 **Manuscript:** [path]
 **Outputs directory:** [path]
-**Tolerance source:** .claude/rules/replication-protocol.md
+**Tolerance source:** .zcode/rules/replication-protocol.md
 
 ## Summary
 
@@ -225,17 +224,17 @@ If a claim in the manuscript is detected that has no matching passport entry, em
 
 Passport mode does NOT delete passport entries. If a claim disappears from the manuscript, the passport entry remains with a STALE status — the author decides whether to delete (claim retracted) or update the entry's `location` (claim moved).
 
-See [`.claude/rules/replication-protocol.md`](../../rules/replication-protocol.md) "Claims Provenance: `passport.yaml`" for the full schema and integration points (`/commit`, `/review-paper`).
+See [`.zcode/rules/replication-protocol.md`](../../rules/replication-protocol.md) "Claims Provenance: `passport.yaml`" for the full schema and integration points (`/commit`, `/review-paper`).
 
 ## Cross-references
 
-- [`.claude/rules/replication-protocol.md`](../../rules/replication-protocol.md) — the tolerance contract + passport schema.
+- [`.zcode/rules/replication-protocol.md`](../../rules/replication-protocol.md) — the tolerance contract + passport schema.
 - [`templates/passport-template.yaml`](../../../templates/passport-template.yaml) — starter file to copy for a new paper.
-- [`.claude/skills/review-r/SKILL.md`](../review-r/SKILL.md) — catches code-style issues; this skill catches NUMERICAL reproducibility.
-- [`.claude/skills/diagnose/SKILL.md`](../diagnose/SKILL.md) — when a claim resolves to **FAIL** and you need to localize *which* pipeline step produced the out-of-tolerance value, hand off to `/diagnose` (single-claim root-cause: reproduce → minimise → bisect).
-- [`.claude/skills/review-paper/SKILL.md`](../review-paper/SKILL.md) — content review; pair with this skill for a full pre-submission audit.
-- [`.claude/skills/replication-package/SKILL.md`](../replication-package/SKILL.md) — gates on this skill before assembling the AEA DCAS deposit.
-- [`.claude/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) · [`.claude/skills/disclosure-check/SKILL.md`](../disclosure-check/SKILL.md) — environment capture + restricted-data screening downstream.
+- [`.zcode/skills/review-r/SKILL.md`](../review-r/SKILL.md) — catches code-style issues; this skill catches NUMERICAL reproducibility.
+- [`.zcode/skills/diagnose/SKILL.md`](../diagnose/SKILL.md) — when a claim resolves to **FAIL** and you need to localize *which* pipeline step produced the out-of-tolerance value, hand off to `/diagnose` (single-claim root-cause: reproduce → minimise → bisect).
+- [`.zcode/skills/review-paper/SKILL.md`](../review-paper/SKILL.md) — content review; pair with this skill for a full pre-submission audit.
+- [`.zcode/skills/replication-package/SKILL.md`](../replication-package/SKILL.md) — gates on this skill before assembling the AEA DCAS deposit.
+- [`.zcode/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) · [`.zcode/skills/disclosure-check/SKILL.md`](../disclosure-check/SKILL.md) — environment capture + restricted-data screening downstream.
 
 ## What this skill does NOT do
 

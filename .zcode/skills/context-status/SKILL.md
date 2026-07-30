@@ -28,7 +28,7 @@ and preservation state.
 Read the context monitor cache to get the current estimate:
 
 ```bash
-cat ~/.claude/sessions/*/context-monitor-cache.json 2>/dev/null | head -20
+cat ~/.zcode/sessions/*/context-monitor-cache.json 2>/dev/null | head -20
 ```
 
 ### Step 2: Find Active Plan

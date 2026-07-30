@@ -4,7 +4,7 @@
 
 **Principle.** Each class of bug we see in review = one entry. Grow the file, don't rewrite it. Mechanical checks (in `scripts/check-skill-integrity.py`) close the obvious holes; this file closes the subtler ones that require judgment.
 
-**How to use.** When writing a deep-audit agent prompt, say "read `.claude/references/audit-pet-peeves.md` and explicitly check for each class before reporting clean." When triaging a Copilot/Codex finding, decide: is this a new class (add entry) or an existing class re-surfacing (bump the evidence list)?
+**How to use.** When writing a deep-audit agent prompt, say "read `.zcode/references/audit-pet-peeves.md` and explicitly check for each class before reporting clean." When triaging a Copilot/Codex finding, decide: is this a new class (add entry) or an existing class re-surfacing (bump the evidence list)?
 
 ---
 
@@ -58,7 +58,7 @@
 
 ## 5. Stale docstring vs code behavior
 
-**Example:** PR #87. `.claude/hooks/log-reminder.py` docstring said "blocks Claude from stopping" but the code had been rewritten to stderr-only advisories. Copilot caught.
+**Example:** PR #87. `.zcode/hooks/log-reminder.py` docstring said "blocks Claude from stopping" but the code had been rewritten to stderr-only advisories. Copilot caught.
 
 **How to catch.** Hard to mechanize. Look for key behavioral claims in docstrings (blocks, fails, exits, returns) and cross-check them against the actual code control flow. When changing a function's behavior, always re-read its docstring.
 
@@ -84,7 +84,7 @@
 
 **Example:** PRs #88–#90. Every time Copilot flagged one phrase in the v1.6.1 CHANGELOG opening ("no new skills, rules, hooks" → "no new directories" → "27/22/13/6" → "no agents in the enumeration"), the surgical fix introduced a new drift elsewhere in the same paragraph. Three rounds of patching, same paragraph.
 
-**How to catch.** Not mechanical — it's a judgment pattern. The rule `.claude/rules/summary-parity.md` encodes it: two review-bot flags on the same summary paragraph = rewrite structurally (abstract up), don't patch.
+**How to catch.** Not mechanical — it's a judgment pattern. The rule `.zcode/rules/summary-parity.md` encodes it: two review-bot flags on the same summary paragraph = rewrite structurally (abstract up), don't patch.
 
 **Why deep-audit missed it.** Enumerative summaries are "technically correct" at every version — the drift is between summary and body across time.
 
@@ -160,7 +160,7 @@
 
 **How to catch.** When reading a function's docstring, extract every behavioral claim (bidirectional, fail-open, exits 1 on X, returns Y when Z) and verify the implementation matches. Contracts lie by omission: if the docstring says "X … and vice versa", the code must actually do both.
 
-**Why deep-audit missed it.** Agent 2's original scope was `.claude/hooks/` only. New code in `scripts/` bypassed the audit entirely. Even with correct scope, "docstring claims X but code does Y" is a class that requires reading both carefully — easy to miss on a skim.
+**Why deep-audit missed it.** Agent 2's original scope was `.zcode/hooks/` only. New code in `scripts/` bypassed the audit entirely. Even with correct scope, "docstring claims X but code does Y" is a class that requires reading both carefully — easy to miss on a skim.
 
 **When to apply.** Any function or script whose docstring makes a behavioral claim. Especially critical for code that's about to be shipped as part of audit infrastructure itself — a bug here undermines everything the code is meant to check.
 
@@ -192,7 +192,7 @@
 
 ## 16. Dead config-map entries that mislead maintainers
 
-**Example:** PR #93 (Copilot). `check-skill-integrity.py` had `RULE_KEYWORDS` entries for `cross-artifact-review.md` and `content-invariants.md`, but neither rule's scope frontmatter (one uses `globs:`, both target `.tex`/`.qmd` files not `.claude/skills/*`) actually fires the check. The entries were no-ops. A future maintainer reading the code would reasonably assume the check was exercising those rules.
+**Example:** PR #93 (Copilot). `check-skill-integrity.py` had `RULE_KEYWORDS` entries for `cross-artifact-review.md` and `content-invariants.md`, but neither rule's scope frontmatter (one uses `globs:`, both target `.tex`/`.qmd` files not `.zcode/skills/*`) actually fires the check. The entries were no-ops. A future maintainer reading the code would reasonably assume the check was exercising those rules.
 
 **How to catch.** When adding an entry to a config map, keyword dict, or registry, verify at least one execution path actually reaches the entry. Dead entries rot in place — they're worse than omitting them because they imply coverage that doesn't exist.
 
@@ -220,14 +220,14 @@
 
 **How to catch.** When adding a skill/agent/rule/hook, audit ALL these surfaces, not just count phrasings:
 - `guide/workflow-guide.qmd` "All Skills" / "All Agents" / "All Rules" appendix tables (count rows = expected N).
-- `CLAUDE.md` "Skills Quick Reference" table (rows = N).
+- `AGENTS.md` "Skills Quick Reference" table (rows = N).
 - `README.md` skills/agents tables.
 - `docs/index.html` inline bullet lists that enumerate skills.
-A future mechanical check could count `.claude/{skills,agents,rules}/*` and grep table rows in these surfaces; until then, deep-audit Agent 1 + Agent 4 should explicitly check appendix table row counts.
+A future mechanical check could count `.zcode/{skills,agents,rules}/*` and grep table rows in these surfaces; until then, deep-audit Agent 1 + Agent 4 should explicitly check appendix table row counts.
 
 **Why deep-audit missed it (until v1.8.0).** Agent 1's prompt asked about counts, not row counts. Agent 4's prompt asked about feature counts agreeing across documents, not about whether enumerative tables tabulate the same set as the count claims. Both agents looked at the lede counts (which were correct) and stopped.
 
-**When to apply.** Whenever a release adds or removes a skill/agent/rule/hook. Surface-sync clean ≠ enumerative tables current. Run a quick `wc -l` style check of appendix tables vs `ls .claude/skills/ | wc -l`.
+**When to apply.** Whenever a release adds or removes a skill/agent/rule/hook. Surface-sync clean ≠ enumerative tables current. Run a quick `wc -l` style check of appendix tables vs `ls .zcode/skills/ | wc -l`.
 
 ---
 
@@ -248,5 +248,5 @@ A future mechanical check could count `.claude/{skills,agents,rules}/*` and grep
 - After any PR where a review bot catches something deep-audit missed, append a new entry (or extend an existing one with new evidence).
 - When an entry's class is automated by `scripts/check-skill-integrity.py` or another mechanical check, note it — but keep the entry, it's still useful context for reviewers.
 - Target ≤ 20 entries; if we hit 25, review + merge related classes or archive resolved ones to a `_resolved.md` sibling.
-- Reference this file from `.claude/skills/deep-audit/SKILL.md` so all 4 agents load it.
+- Reference this file from `.zcode/skills/deep-audit/SKILL.md` so all 4 agents load it.
 - Link from MEMORY.md `[LEARN:audit]` entries when a specific lesson ties to an entry here.

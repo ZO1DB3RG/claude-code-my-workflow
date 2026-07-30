@@ -4,7 +4,6 @@ description: Pre-screen analysis outputs (tables, figures, logs) built on restri
 argument-hint: "[outputs-dir] [--provider census|irs|irb|generic] [--threshold N] (outputs-dir defaults to scripts/R/_outputs/)"
 disable-model-invocation: true
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Bash"]
-effort: high
 ---
 
 # `/disclosure-check` — Statistical-Disclosure-Limitation pre-screen
@@ -30,7 +29,7 @@ Scan analysis outputs built on **restricted or confidential data** (Census FSRDC
 
 ### Phase 0: Load the provider's disclosure rules
 
-1. Read [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) for the project's restricted-data handling contract and the rule-profile placeholder.
+1. Read [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) for the project's restricted-data handling contract and the rule-profile placeholder.
 2. Load the `--provider` profile (a **placeholder config** the forker fills in from their *signed* agreement — Census, IRS, and IRB rules differ and supersede any default here):
    - **min cell count** (default `n<10`),
    - **dominance rules**: `p`-percent (a cell is unsafe if the largest respondents contribute > `p`% of the total) and `(n,k)` (top `n` units > `k`% of total),
@@ -126,10 +125,10 @@ Write `quality_reports/disclosure_check_[outputs-dir-slug].md`:
 
 ## Cross-references
 
-- [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data handling contract + the provider-rule profiles this skill loads.
-- [`.claude/rules/replication-protocol.md`](../../rules/replication-protocol.md) — for restricted-data papers the replication package ships code + access path, not the microdata; screen every released output first.
-- [`.claude/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) — numeric paper↔code verification: run it on the *retained* values, this skill on the *released* ones.
-- [`.claude/skills/data-analysis/SKILL.md`](../data-analysis/SKILL.md), [`.claude/skills/stata-replication/SKILL.md`](../stata-replication/SKILL.md) — produce the R / Stata / Python outputs this skill screens.
+- [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data handling contract + the provider-rule profiles this skill loads.
+- [`.zcode/rules/replication-protocol.md`](../../rules/replication-protocol.md) — for restricted-data papers the replication package ships code + access path, not the microdata; screen every released output first.
+- [`.zcode/skills/audit-reproducibility/SKILL.md`](../audit-reproducibility/SKILL.md) — numeric paper↔code verification: run it on the *retained* values, this skill on the *released* ones.
+- [`.zcode/skills/data-analysis/SKILL.md`](../data-analysis/SKILL.md), [`.zcode/skills/stata-replication/SKILL.md`](../stata-replication/SKILL.md) — produce the R / Stata / Python outputs this skill screens.
 - [AEA Data Editor checklist](https://aeadataeditor.github.io/) and the [DCAS standard](https://datacodestandard.org/) — disclosure + access expectations for restricted-data deposits (openICPSR restricted-access stub).
 
 ## What this skill does NOT do

@@ -10,7 +10,7 @@ allowed-tools: ["Read", "Write", "Edit", "Glob", "Grep", "Bash", "Task"]
 
 # `/stata-replication` — Stata pipeline scaffold + execution
 
-Build a complete Stata replication pipeline in `scripts/stata/`: numbered `.do` files following [`.claude/rules/stata-code-conventions.md`](../../rules/stata-code-conventions.md), executed via the [`stata-mcp`](https://github.com/SepineTam/stata-mcp) MCP server, with outputs landing in `scripts/stata/_outputs/`.
+Build a complete Stata replication pipeline in `scripts/stata/`: numbered `.do` files following [`.zcode/rules/stata-code-conventions.md`](../../rules/stata-code-conventions.md), executed via the [`stata-mcp`](https://github.com/SepineTam/stata-mcp) MCP server, with outputs landing in `scripts/stata/_outputs/`.
 
 ## When to use
 
@@ -44,7 +44,7 @@ If `stata-mcp` is not installed, the skill halts at Phase 0 with installation in
 1. Verify `stata-mcp` is registered in the user's MCP configuration. If not → halt with install instructions.
 2. Verify Stata is installed locally (the MCP server cannot run without it). Output stata version to confirm.
 3. Confirm `scripts/stata/` directory exists or can be created.
-4. Read [`.claude/rules/stata-code-conventions.md`](../../rules/stata-code-conventions.md) — every emitted `.do` file follows this convention.
+4. Read [`.zcode/rules/stata-code-conventions.md`](../../rules/stata-code-conventions.md) — every emitted `.do` file follows this convention.
 5. If `--from-r` flag is set, locate the existing R pipeline at `scripts/R/` and use it as a translation source. Apply the Stata → R pitfalls table from `replication-protocol.md` in reverse.
 
 ### Phase 1: Scaffold the pipeline
@@ -107,8 +107,8 @@ Discrepancies are surfaced for the user to investigate — typical culprits: clu
 
 ## Cross-references
 
-- [`.claude/rules/stata-code-conventions.md`](../../rules/stata-code-conventions.md) — the discipline contract.
-- [`.claude/rules/replication-protocol.md`](../../rules/replication-protocol.md) — tolerance thresholds (applies across R / Stata / Python).
+- [`.zcode/rules/stata-code-conventions.md`](../../rules/stata-code-conventions.md) — the discipline contract.
+- [`.zcode/rules/replication-protocol.md`](../../rules/replication-protocol.md) — tolerance thresholds (applies across R / Stata / Python).
 - [stata-mcp on GitHub](https://github.com/SepineTam/stata-mcp) — the MCP server this skill depends on.
 - [AEA Data Editor checklist](https://aeadataeditor.github.io/) — replication-package standards.
 

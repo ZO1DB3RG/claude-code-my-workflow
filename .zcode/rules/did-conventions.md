@@ -67,6 +67,6 @@ The opinionated defaults here reflect **Pedro Sant'Anna's sign-off** (2026-06-09
 - ❌ Interpret an implausible number before **debugging the wrapper**.
 
 ## Cross-references
-- [`.claude/skills/did-event-study/SKILL.md`](../skills/did-event-study/SKILL.md) — the pipeline.
-- [`.claude/rules/replication-protocol.md`](replication-protocol.md) · [`.claude/rules/r-code-conventions.md`](r-code-conventions.md) · [`.claude/rules/simulation-conventions.md`](simulation-conventions.md).
+- [`.zcode/skills/did-event-study/SKILL.md`](../skills/did-event-study/SKILL.md) — the pipeline.
+- [`.zcode/rules/replication-protocol.md`](replication-protocol.md) · [`.zcode/rules/r-code-conventions.md`](r-code-conventions.md) · [`.zcode/rules/simulation-conventions.md`](simulation-conventions.md).
 - Canonical resources: <https://psantanna.com/did-resources/> (the JEL Practitioner's Guide, *What's Trending*, the course, all packages).

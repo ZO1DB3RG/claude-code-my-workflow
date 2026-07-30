@@ -109,6 +109,6 @@ Then:
 
 ## Where this file lives
 
-- **File:** `.claude/references/discipline-cards.md`
-- **Schema parallel:** `.claude/references/journal-profiles.md` (per-journal) and `.claude/references/audit-pet-peeves.md` (living-catalogue format).
+- **File:** `.zcode/references/discipline-cards.md`
+- **Schema parallel:** `.zcode/references/journal-profiles.md` (per-journal) and `.zcode/references/audit-pet-peeves.md` (living-catalogue format).
 - **Consumed by:** `/research-ideation`, `/interview-me`, `/preregister`, `editor` agent.

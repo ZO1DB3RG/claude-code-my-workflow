@@ -3,7 +3,6 @@ name: syllabus
 description: Build or restructure a course syllabus from a topic list or reading list — course description + prerequisites, week-by-week schedule (topic → readings → deliverables), measurable learning objectives, an assessment scheme + rubric, standard policies (late work, AI use, academic integrity, accessibility), and a per-week work-list to hand to `/create-lecture`. Use when user says "build a syllabus", "structure my course", "turn this reading list into a schedule", "draft a course outline", "make a syllabus for Econ 7xx", or "map weeks to lectures". Economics-aware (PhD metrics/micro/macro sequences, undergrad); generic enough for any field.
 argument-hint: "[course title or topic/reading list] [--weeks N] [--level phd|grad|undergrad] [--sessions-per-week N] [--no-policies]"
 allowed-tools: ["Read", "Grep", "Glob", "Write"]
-effort: medium
 ---
 
 # Build a Course Syllabus
@@ -104,10 +103,10 @@ End the chat message (not the file) with a **gap summary**: weeks with no readin
 
 ## Cross-references
 
-- `/create-lecture` ([`.claude/skills/create-lecture/SKILL.md`](../create-lecture/SKILL.md)) — the natural next step; feed it the work-list rows one week at a time.
-- `/lit-review` ([`.claude/skills/lit-review/SKILL.md`](../lit-review/SKILL.md)) — build or extend the reading list *before* sequencing.
-- `/interview-me` ([`.claude/skills/interview-me/SKILL.md`](../interview-me/SKILL.md)) — if the course goals are still fuzzy, formalize them first.
-- `/pedagogy-review` ([`.claude/skills/pedagogy-review/SKILL.md`](../pedagogy-review/SKILL.md)) — review narrative/pacing once decks exist; the syllabus arc is the input it checks against.
+- `/create-lecture` ([`.zcode/skills/create-lecture/SKILL.md`](../create-lecture/SKILL.md)) — the natural next step; feed it the work-list rows one week at a time.
+- `/lit-review` ([`.zcode/skills/lit-review/SKILL.md`](../lit-review/SKILL.md)) — build or extend the reading list *before* sequencing.
+- `/interview-me` ([`.zcode/skills/interview-me/SKILL.md`](../interview-me/SKILL.md)) — if the course goals are still fuzzy, formalize them first.
+- `/pedagogy-review` ([`.zcode/skills/pedagogy-review/SKILL.md`](../pedagogy-review/SKILL.md)) — review narrative/pacing once decks exist; the syllabus arc is the input it checks against.
 - Authoring conventions: [`templates/skill-template.md`](../../../templates/skill-template.md).
 
 ## What this skill does NOT do

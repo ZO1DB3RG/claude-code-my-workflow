@@ -6,7 +6,6 @@ version: 1.0.0
 argument-hint: "[--since <tag|date|Ndays>] [--for <collaborator-name>] [--no-data-section]"
 disable-model-invocation: true
 allowed-tools: ["Read", "Write", "Glob", "Grep", "Bash"]
-effort: medium
 ---
 
 # /coauthor-brief — Collaborator Handoff Brief
@@ -92,7 +91,7 @@ branch: [current branch]
 ## Recommended git topology for this project
 - One **feature branch per author** (`feat/<author>-<topic>`); rebase on `main`, open a PR, merge via `/commit`.
 - `MEMORY.md` is **committed** — generic learnings sync to everyone.
-- `personal-memory.md` and `.claude/state/` stay **local** (gitignored) — never expect a co-author to have yours (see meta-governance.md).
+- `personal-memory.md` and `.zcode/state/` stay **local** (gitignored) — never expect a co-author to have yours (see meta-governance.md).
 - Pull before you brief; brief before you hand off.
 ```
 
@@ -118,11 +117,11 @@ A single Markdown handoff doc at `quality_reports/handoffs/YYYY-MM-DD_coauthor-b
 
 ## Cross-references
 
-- [`.claude/rules/meta-governance.md`](../../rules/meta-governance.md) — the cross-machine memory model (what syncs, what stays local) this brief operationalizes for *people*.
-- [`.claude/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) — produces the lockfiles the "Reproduce locally" section points at.
-- [`.claude/skills/checkpoint/SKILL.md`](../checkpoint/SKILL.md) — the *self*-resume companion (this skill is the *other-person* handoff).
-- [`.claude/skills/compress-session/SKILL.md`](../compress-session/SKILL.md) — distil a noisy session before compaction (orthogonal; run before briefing if context is fat).
-- [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data handling; the data section summarizes its access steps without exposing data.
+- [`.zcode/rules/meta-governance.md`](../../rules/meta-governance.md) — the cross-machine memory model (what syncs, what stays local) this brief operationalizes for *people*.
+- [`.zcode/skills/capture-environment/SKILL.md`](../capture-environment/SKILL.md) — produces the lockfiles the "Reproduce locally" section points at.
+- [`.zcode/skills/checkpoint/SKILL.md`](../checkpoint/SKILL.md) — the *self*-resume companion (this skill is the *other-person* handoff).
+- [`.zcode/skills/compress-session/SKILL.md`](../compress-session/SKILL.md) — distil a noisy session before compaction (orthogonal; run before briefing if context is fat).
+- [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) — restricted-data handling; the data section summarizes its access steps without exposing data.
 
 ## What this skill does NOT do
 

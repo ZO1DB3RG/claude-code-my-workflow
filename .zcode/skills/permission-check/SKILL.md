@@ -1,6 +1,6 @@
 ---
 name: permission-check
-description: Diagnose why Claude Code is (or isn't) prompting for permission. By default reads only repo-local layers (CLI project, CLI project-local, VSCode workspace). Host-global layers (CLI user `~/.claude/`, VSCode user settings) are read ONLY when the user explicitly confirms — those files may contain unrelated paths or secrets. Use when user says "why is it asking me to approve?", "permission check", "why am I getting prompts?", "bypass isn't working", "check my permissions". Read-only diagnostic.
+description: Diagnose why Claude Code is (or isn't) prompting for permission. By default reads only repo-local layers (CLI project, CLI project-local, VSCode workspace). Host-global layers (CLI user `~/.zcode/`, VSCode user settings) are read ONLY when the user explicitly confirms — those files may contain unrelated paths or secrets. Use when user says "why is it asking me to approve?", "permission check", "why am I getting prompts?", "bypass isn't working", "check my permissions". Read-only diagnostic.
 argument-hint: "(no arguments)"
 allowed-tools: ["Read", "Bash", "Glob"]
 ---
@@ -15,16 +15,16 @@ Surface the full permission-mode picture across every layer Claude Code honors, 
 
 1. **VSCode user settings** — `~/Library/Application Support/Code/User/settings.json` (macOS), `%APPDATA%/Code/User/settings.json` (Windows), `~/.config/Code/User/settings.json` (Linux). Key: `claudeCode.initialPermissionMode`.
 2. **VSCode workspace settings** — `<repo>/.vscode/settings.json`. Same key. Wins over user.
-3. **CLI user settings** — `~/.claude/settings.json`. Key: `permissions.defaultMode`.
-4. **CLI project settings** — `<repo>/.claude/settings.json`. Same key. Wins over user.
-5. **CLI project-local settings** — `<repo>/.claude/settings.local.json`. Same key. Wins over project.
+3. **CLI user settings** — `~/.zcode/settings.json`. Key: `permissions.defaultMode`.
+4. **CLI project settings** — `<repo>/.zcode/settings.json`. Same key. Wins over user.
+5. **CLI project-local settings** — `<repo>/.zcode/settings.local.json`. Same key. Wins over project.
 6. **In-session mode** — set at session start from layers 1-5, then mutable via `Shift+Tab` or `/permission-mode`. Authoritative until session ends.
 
 **Key insight:** `initialPermissionMode` only fires at session start. If you toggled mid-session (or the session started before a settings change), the file-level settings are correct but the *runtime* mode differs. That's the #1 source of "bypass isn't working" confusion.
 
 ## Privacy contract
 
-Host-global settings files (`~/.claude/settings.json`, VSCode user settings) may contain:
+Host-global settings files (`~/.zcode/settings.json`, VSCode user settings) may contain:
 - Paths to unrelated projects and secrets
 - API keys, tokens, or provider credentials added outside this repo
 - Permission policies set by the user's org or employer
@@ -39,8 +39,8 @@ Read these immediately — they are checked into (or gitignored inside) the repo
 
 ```bash
 VSCODE_WS="${CLAUDE_PROJECT_DIR}/.vscode/settings.json"
-CLI_PROJECT="${CLAUDE_PROJECT_DIR}/.claude/settings.json"
-CLI_LOCAL="${CLAUDE_PROJECT_DIR}/.claude/settings.local.json"
+CLI_PROJECT="${CLAUDE_PROJECT_DIR}/.zcode/settings.json"
+CLI_LOCAL="${CLAUDE_PROJECT_DIR}/.zcode/settings.local.json"
 ```
 
 For each file that exists, extract:
@@ -56,7 +56,7 @@ Print the resolved defaultMode from these three layers alone. If that already ex
 If Phase A is inconclusive — e.g., all repo-local layers agree on bypass but the user is still being prompted — ask the user:
 
 > "To complete the diagnosis, I need to read two files outside this repo:
-> - `~/.claude/settings.json` (CLI user-level)
+> - `~/.zcode/settings.json` (CLI user-level)
 > - your VSCode user settings (`~/Library/Application Support/Code/User/settings.json` on macOS; Linux/Windows vary)
 >
 > These may contain unrelated paths or secrets. I will redact any key that isn't in `permissions.*` or `claudeCode.*`. Proceed?"
@@ -72,7 +72,7 @@ case "$(uname -s)" in
     *)       VSCODE_USER="" ;;
 esac
 
-CLI_USER="${HOME}/.claude/settings.json"
+CLI_USER="${HOME}/.zcode/settings.json"
 ```
 
 When reporting their contents, **extract only the relevant keys**:
@@ -92,11 +92,11 @@ The resolved `defaultMode` is the value from the highest-precedence layer that s
 
 ### Step 3: Report runtime mode
 
-The live in-session mode is exposed via the status line (see `.claude/scripts/statusline.sh`). Tell the user:
+The live in-session mode is exposed via the status line (see `.zcode/scripts/statusline.sh`). Tell the user:
 
 > "Your status line shows the current in-session mode in the top-right of the Claude Code panel. If that disagrees with the resolved `defaultMode` above, you (or Shift+Tab) overrode it mid-session. Press Shift+Tab to cycle back."
 
-If the status line isn't configured, emit a warning and point at `.claude/scripts/statusline.sh`.
+If the status line isn't configured, emit a warning and point at `.zcode/scripts/statusline.sh`.
 
 ### Step 4: Flag common failure modes
 

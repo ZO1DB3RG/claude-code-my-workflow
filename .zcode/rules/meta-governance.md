@@ -62,7 +62,7 @@ When creating or modifying content, ask:
 
 ---
 
-### .claude/state/personal-memory.md (gitignored, local only)
+### .zcode/state/personal-memory.md (gitignored, local only)
 
 **Purpose:** Machine-specific and user-specific learnings
 
@@ -86,12 +86,12 @@ When creating or modifying content, ask:
 - Clone repo → gets MEMORY.md with generic learnings ✓
 - Gets all infrastructure (skills, agents, rules, templates) ✓
 - Gets up-to-date guide and documentation ✓
-- Builds `.claude/state/personal-memory.md` specific to desktop setup
+- Builds `.zcode/state/personal-memory.md` specific to desktop setup
 
 **Machine B (laptop):**
 - Clone same repo → gets same MEMORY.md ✓
 - Gets same infrastructure ✓
-- Builds DIFFERENT `.claude/state/personal-memory.md` for laptop setup
+- Builds DIFFERENT `.zcode/state/personal-memory.md` for laptop setup
 
 **Key insight:** Generic patterns sync via git, personal patterns stay local (or manually copied if truly needed).
 
@@ -143,7 +143,7 @@ Always use XeLaTeX with TEXINPATHS=../Preambles for Emory slides.
 ```markdown
 # LaTeX Compilation Rule
 Use project-specific TEXINPATHS if preambles are in separate directory.
-Configure in CLAUDE.md for your setup.
+Configure in AGENTS.md for your setup.
 ```
 
 ### Provide Examples from Multiple Domains
@@ -170,7 +170,7 @@ Your bibliography MUST be named Bibliography_base.bib and live in root.
 
 **Good (template with placeholders):**
 ```markdown
-Configure bibliography location in CLAUDE.md:
+Configure bibliography location in AGENTS.md:
 [YOUR_BIB_FILE] (e.g., Bibliography_base.bib, refs.bib, ../library.bib)
 ```
 
@@ -185,9 +185,9 @@ It's okay for README and guide to say:
 
 As long as it's clear this is ONE example, not THE requirement.
 
-### CLAUDE.md Can Have Placeholders
+### AGENTS.md Can Have Placeholders
 
-The template CLAUDE.md has `[YOUR PROJECT NAME]`, `[YOUR INSTITUTION]` — this is correct. Users fill them in.
+The template AGENTS.md has `[YOUR PROJECT NAME]`, `[YOUR INSTITUTION]` — this is correct. Users fill them in.
 
 ### Documentation Can Reference Original Use Case
 
@@ -221,16 +221,16 @@ As this repository evolves, meta-governance may need updates.
 | Content Type | Commit to Repo? | Where It Goes | Syncs Across Machines? |
 |--------------|----------------|---------------|----------------------|
 | Workflow patterns (generic) | ✅ Yes | MEMORY.md | ✅ Yes (via git) |
-| Machine-specific setup | ❌ No | .claude/state/personal-memory.md | ❌ No (gitignored) |
+| Machine-specific setup | ❌ No | .zcode/state/personal-memory.md | ❌ No (gitignored) |
 | Templates (generic) | ✅ Yes | templates/ | ✅ Yes |
-| Skills (generic) | ✅ Yes | .claude/skills/ | ✅ Yes |
-| Rules (path-scoped, generic) | ✅ Yes | .claude/rules/ | ✅ Yes |
-| Agents (generic) | ✅ Yes | .claude/agents/ | ✅ Yes |
-| Hooks (generic behavior) | ✅ Yes | .claude/hooks/ | ✅ Yes |
+| Skills (generic) | ✅ Yes | .zcode/skills/ | ✅ Yes |
+| Rules (path-scoped, generic) | ✅ Yes | .zcode/rules/ | ✅ Yes |
+| Agents (generic) | ✅ Yes | .zcode/agents/ | ✅ Yes |
+| Hooks (generic behavior) | ✅ Yes | .zcode/hooks/ | ✅ Yes |
 | Session logs | ✅ Yes | quality_reports/session_logs/ | ✅ Yes |
 | Plans | ✅ Yes | quality_reports/plans/ | ✅ Yes |
-| Local settings | ❌ No | .claude/settings.local.json | ❌ No (gitignored) |
-| Session state | ❌ No | .claude/state/ | ❌ No (gitignored) |
+| Local settings | ❌ No | .zcode/settings.local.json | ❌ No (gitignored) |
+| Session state | ❌ No | .zcode/state/ | ❌ No (gitignored) |
 | Build artifacts | ❌ No | .aux, .log, .synctex.gz | ❌ No (gitignored) |
 
 ---
@@ -243,7 +243,7 @@ As this repository evolves, meta-governance may need updates.
 
 **The solution:**
 - Commit generic patterns that help all users (MEMORY.md, templates, infrastructure)
-- Keep specific learnings local (.claude/state/personal-memory.md, gitignored)
+- Keep specific learnings local (.zcode/state/personal-memory.md, gitignored)
 - Dogfood our own workflow (plan-first, spec-then-plan, quality gates)
 - Document with examples from multiple domains (not just our use case)
 - Review quarterly: promote generic patterns, refine specific ones

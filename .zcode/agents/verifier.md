@@ -3,7 +3,6 @@ name: verifier
 description: End-to-end verification agent. Checks that slides compile, render, deploy, and display correctly. Use proactively before committing or creating PRs.
 tools: Read, Grep, Glob, Bash
 model: opus
-effort: high
 ---
 
 You are a verification agent for academic course materials.

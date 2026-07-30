@@ -90,10 +90,10 @@ In the paper review report, add a new section:
 
 ## Cross-references
 
-- `.claude/skills/review-paper/SKILL.md` — the orchestrator.
-- `.claude/skills/review-r/SKILL.md` — code reviewer.
-- `.claude/skills/audit-reproducibility/SKILL.md` — numeric claims verifier.
-- `.claude/rules/replication-protocol.md` — tolerance contract.
+- `.zcode/skills/review-paper/SKILL.md` — the orchestrator.
+- `.zcode/skills/review-r/SKILL.md` — code reviewer.
+- `.zcode/skills/audit-reproducibility/SKILL.md` — numeric claims verifier.
+- `.zcode/rules/replication-protocol.md` — tolerance contract.
 
 ## What this rule does NOT require
 

@@ -1,9 +1,16 @@
-# CLAUDE.MD -- Academic Project Development with Claude Code
+# AGENTS.md -- Academic Project Development with ZCode
 
 <!-- HOW TO USE: Replace [BRACKETED PLACEHOLDERS] with your project info.
      Customize Beamer environments and CSS classes for your theme.
-     Keep this file under ~150 lines — Claude loads it every session.
-     See the guide at docs/workflow-guide.html for full documentation. -->
+     Keep this file under ~150 lines — ZCode loads it every session.
+     See the guide at docs/workflow-guide.html for full documentation.
+
+     ADAPTATION NOTE: This repo was forked from pedrohcgs/claude-code-my-workflow
+     and adapted from Claude Code -> ZCode. Directory is .zcode/ (not .claude/),
+     config lives in .zcode/config.json (no permissions block; hooks under
+     hooks.events.*). Skills/agents lost their `effort:` field (ZCode has no
+     effort axis) and `model:` aliases resolve to the configured model. The
+     orchestrator fan-out uses ZCode's Agent tool (Task<->Agent aliased). -->
 
 **Project:** [YOUR PROJECT NAME]
 **Institution:** [YOUR INSTITUTION]
@@ -28,7 +35,7 @@ Cross-session context lives in [MEMORY.md](MEMORY.md); past plans, specs, and se
 ```
 [YOUR-PROJECT]/
 ├── CLAUDE.MD                    # This file
-├── .claude/                     # Rules, skills, agents, hooks
+├── .zcode/                     # Rules, skills, agents, hooks
 ├── Bibliography_base.bib        # Centralized bibliography
 ├── Figures/                     # Figures and images
 ├── Preambles/header.tex         # LaTeX headers
@@ -62,7 +69,7 @@ python scripts/quality_score.py Quarto/file.qmd
 # Palette sync (LaTeX ↔ SCSS)
 ./scripts/check-palette-sync.sh
 
-# Surface-count sync (README ↔ CLAUDE.md ↔ guide ↔ landing page)
+# Surface-count sync (README ↔ AGENTS.md ↔ guide ↔ landing page)
 ./scripts/check-surface-sync.sh
 ```
 

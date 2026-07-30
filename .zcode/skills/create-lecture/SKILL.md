@@ -12,7 +12,6 @@ disable-model-invocation: true
 Create a beautiful, pedagogically excellent Beamer lecture deck.
 
 **This is a collaborative, iterative process. The instructor drives the vision; Claude is a thinking partner.**
-
 ---
 
 ## CONSTRAINTS (Non-Negotiable)
@@ -37,8 +36,8 @@ Create a beautiful, pedagogically excellent Beamer lecture deck.
 Read the inputs, then produce a Pre-Flight Report in your response before Phase 1 starts.
 
 Inputs to read:
-- `.claude/rules/knowledge-base-template.md` — notation registry, narrative arc, applications
-- `.claude/rules/content-invariants.md` — INV-1..INV-8 govern slide content
+- `.zcode/rules/knowledge-base-template.md` — notation registry, narrative arc, applications
+- `.zcode/rules/content-invariants.md` — INV-1..INV-8 govern slide content
 - Any source papers / existing slides the user provided
 - The previous lecture's `.tex` (last section + ending slide) if one exists
 
@@ -65,7 +64,7 @@ Required Pre-Flight Report block:
 
 State the pedagogical goal, get user confirmation, then proceed.
 
-**First-lecture fallback (fresh fork, empty knowledge base).** If `.claude/rules/knowledge-base-template.md` still has unfilled placeholder tables (no notation registry entries, no applications, no prior lectures in `Slides/`), do NOT halt waiting for it. Instead:
+**First-lecture fallback (fresh fork, empty knowledge base).** If `.zcode/rules/knowledge-base-template.md` still has unfilled placeholder tables (no notation registry entries, no applications, no prior lectures in `Slides/`), do NOT halt waiting for it. Instead:
 
 1. Acknowledge the template is empty and we're creating the course's first lecture.
 2. Propose a **minimal starter knowledge base** from the user's topic: 5-8 key symbols with conventions, 1-2 running applications, a short narrative arc (intro → main idea → implications). Present for approval.
@@ -122,7 +121,7 @@ This prevents `/create-lecture` from deadlocking for every new forker.
 
 ## Cross-references
 
-- [`.claude/skills/translate-to-quarto/SKILL.md`](../translate-to-quarto/SKILL.md) — port the finished Beamer deck to a Quarto RevealJS mirror.
-- [`.claude/skills/qa-quarto/SKILL.md`](../qa-quarto/SKILL.md) — adversarial Beamer↔Quarto parity (loop-until-dry).
-- [`.claude/skills/deploy/SKILL.md`](../deploy/SKILL.md) — render + publish the lecture to GitHub Pages.
-- [`.claude/skills/scaffold-exercises/SKILL.md`](../scaffold-exercises/SKILL.md) — problem sets + solutions to accompany the lecture.
+- [`.zcode/skills/translate-to-quarto/SKILL.md`](../translate-to-quarto/SKILL.md) — port the finished Beamer deck to a Quarto RevealJS mirror.
+- [`.zcode/skills/qa-quarto/SKILL.md`](../qa-quarto/SKILL.md) — adversarial Beamer↔Quarto parity (loop-until-dry).
+- [`.zcode/skills/deploy/SKILL.md`](../deploy/SKILL.md) — render + publish the lecture to GitHub Pages.
+- [`.zcode/skills/scaffold-exercises/SKILL.md`](../scaffold-exercises/SKILL.md) — problem sets + solutions to accompany the lecture.

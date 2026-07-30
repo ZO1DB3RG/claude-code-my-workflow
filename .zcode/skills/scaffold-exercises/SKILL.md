@@ -3,7 +3,6 @@ name: scaffold-exercises
 description: Scaffold a graded problem set with sections, problems, worked solutions, and short "why this matters" explainers across analytical, empirical, and coding types. Use when user says "make a problem set on X", "scaffold exercises for this lecture", "create practice problems", "generate homework with a solution key", "build a graded assignment on topic Y". Emits a clean student set plus a separate solution key — NOT for grading submissions or auto-checking student answers.
 argument-hint: "[topic] [--difficulty intro|core|advanced] [--count N] [--types analytical,empirical,coding] [--dataset path] [--no-solutions]"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Bash"]
-effort: medium
 ---
 
 # `/scaffold-exercises` — Problem Set Scaffolder
@@ -122,11 +121,11 @@ Solution key mirrors the numbering, adding `### Solution` and `> Why this matter
 
 ## Cross-references
 
-- [`.claude/skills/create-lecture/SKILL.md`](../create-lecture/SKILL.md) — build the lecture these exercises practice; shares notation-reuse + motivation-first conventions.
-- [`.claude/skills/data-analysis/SKILL.md`](../data-analysis/SKILL.md) — for empirical problems whose reference solution needs a full R estimation pipeline.
-- [`.claude/skills/simulation-study/SKILL.md`](../simulation-study/SKILL.md) — when a problem demonstrates an estimator's finite-sample behavior; reuse its seeded-DGP discipline.
-- [`.claude/skills/lit-review/SKILL.md`](../lit-review/SKILL.md) — source advanced problems from current papers on the topic.
-- [`.claude/skills/interview-me/SKILL.md`](../interview-me/SKILL.md) — turn a fuzzy "I want a set on…" into concrete learning objectives first.
+- [`.zcode/skills/create-lecture/SKILL.md`](../create-lecture/SKILL.md) — build the lecture these exercises practice; shares notation-reuse + motivation-first conventions.
+- [`.zcode/skills/data-analysis/SKILL.md`](../data-analysis/SKILL.md) — for empirical problems whose reference solution needs a full R estimation pipeline.
+- [`.zcode/skills/simulation-study/SKILL.md`](../simulation-study/SKILL.md) — when a problem demonstrates an estimator's finite-sample behavior; reuse its seeded-DGP discipline.
+- [`.zcode/skills/lit-review/SKILL.md`](../lit-review/SKILL.md) — source advanced problems from current papers on the topic.
+- [`.zcode/skills/interview-me/SKILL.md`](../interview-me/SKILL.md) — turn a fuzzy "I want a set on…" into concrete learning objectives first.
 - [`templates/skill-template.md`](../../../templates/skill-template.md) — house style for authoring/extending this skill.
 
 ---

@@ -6,7 +6,6 @@ version: 1.0.0
 argument-hint: "[--mode mde|n|power] [--design rct|cluster|multiarm|sim] [--input <spec-or-description>]"
 disable-model-invocation: true
 allowed-tools: ["Read", "Write", "Edit", "Bash", "Task"]
-effort: high
 ---
 
 # `/power-analysis` — Power / MDE for study design
@@ -58,7 +57,7 @@ Sweep a grid (N or #clusters × effect size) so Phase 3 can draw a power curve a
 
 ### Phase 2 — Simulation-based power (non-standard designs)
 
-When the design is **not** a clean two-arm comparison — DiD / staggered event-study, IV / 2SLS (weak-instrument-aware), panel with serial correlation, a non-normal or censored outcome, or any estimator with no closed-form SE — switch to simulation. **Reuse the `/simulation-study` harness** exactly (see [`simulation-study`](../simulation-study/SKILL.md) and [`.claude/rules/simulation-conventions.md`](../../rules/simulation-conventions.md)):
+When the design is **not** a clean two-arm comparison — DiD / staggered event-study, IV / 2SLS (weak-instrument-aware), panel with serial correlation, a non-normal or censored outcome, or any estimator with no closed-form SE — switch to simulation. **Reuse the `/simulation-study` harness** exactly (see [`simulation-study`](../simulation-study/SKILL.md) and [`.zcode/rules/simulation-conventions.md`](../../rules/simulation-conventions.md)):
 
 1. **Seeded, parameterized DGP** that embeds the hypothesized effect (and the null DGP for size). `set.seed(YYYYMMDD)` once; L'Ecuyer streams if parallel.
 2. **Estimator** = the one you will actually use on the real data (e.g. `fixest::feols` two-way FE, `did::att_gt`, `AER::ivreg`), returning `est, se, ci, p, reject`.
@@ -115,11 +114,11 @@ If invoked by `/preregister`, return the methods paragraph + MDE row for the pre
 
 ## Cross-references
 
-- [`.claude/skills/preregister/SKILL.md`](../preregister/SKILL.md) — invokes this skill to fill the power/MDE section of an `aea-rct` (and OSF) preregistration; this skill returns the methods paragraph.
-- [`.claude/skills/simulation-study/SKILL.md`](../simulation-study/SKILL.md) — the Monte Carlo harness Phase 2 reuses (seeded DGP, estimator grid, % rejecting H0).
-- [`.claude/rules/simulation-conventions.md`](../../rules/simulation-conventions.md) — the simulation contract (truth from DGP, MCSE, size-under-the-null) that Phase 2 must honor.
-- [`.claude/skills/data-analysis/SKILL.md`](../data-analysis/SKILL.md) · [`.claude/skills/stata-replication/SKILL.md`](../stata-replication/SKILL.md) — where the realised analysis (and its actual estimator/SE) lives; the power calc should use the same estimator.
-- [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) — when baseline mean/SD/ICC are taken from restricted-access data, disclosure-avoidance limits apply; cite published or pilot moments rather than embedding raw confidential statistics in the (externally-uploaded) preregistration.
+- [`.zcode/skills/preregister/SKILL.md`](../preregister/SKILL.md) — invokes this skill to fill the power/MDE section of an `aea-rct` (and OSF) preregistration; this skill returns the methods paragraph.
+- [`.zcode/skills/simulation-study/SKILL.md`](../simulation-study/SKILL.md) — the Monte Carlo harness Phase 2 reuses (seeded DGP, estimator grid, % rejecting H0).
+- [`.zcode/rules/simulation-conventions.md`](../../rules/simulation-conventions.md) — the simulation contract (truth from DGP, MCSE, size-under-the-null) that Phase 2 must honor.
+- [`.zcode/skills/data-analysis/SKILL.md`](../data-analysis/SKILL.md) · [`.zcode/skills/stata-replication/SKILL.md`](../stata-replication/SKILL.md) — where the realised analysis (and its actual estimator/SE) lives; the power calc should use the same estimator.
+- [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) — when baseline mean/SD/ICC are taken from restricted-access data, disclosure-avoidance limits apply; cite published or pilot moments rather than embedding raw confidential statistics in the (externally-uploaded) preregistration.
 
 ## What this skill does NOT do
 

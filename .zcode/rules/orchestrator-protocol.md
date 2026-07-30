@@ -81,13 +81,13 @@ A forked subagent cannot stop to ask the user a question. So every interactive c
 When the user says "just do it" / "handle it" (within an already-invoked skill):
 
 - Skip the final approval pause for the current skill; still run the full fan-out → reduce → judge → loop-until-dry; still present the summary.
-- **Do NOT treat this phrase as commit authorization.** Commits require an explicit `/commit` or unambiguous request — see [`.claude/skills/commit/SKILL.md`](../skills/commit/SKILL.md).
+- **Do NOT treat this phrase as commit authorization.** Commits require an explicit `/commit` or unambiguous request — see [`.zcode/skills/commit/SKILL.md`](../skills/commit/SKILL.md).
 
 ## Cross-references
 
-- [`.claude/references/orchestration-schemas.md`](../references/orchestration-schemas.md) — FINDING / SCORECARD / RUN_CONFIG / hallucination-gate contracts.
-- [`.claude/references/agent-fleet.md`](../references/agent-fleet.md) — the reviewer fleet + model tiers.
-- [`.claude/rules/plan-first-workflow.md`](plan-first-workflow.md) — when to enter plan mode before invoking a skill.
-- [`.claude/rules/quality-gates.md`](quality-gates.md) — threshold definitions + the pre-commit hook.
-- [`.claude/rules/post-flight-verification.md`](post-flight-verification.md) — the forked-verifier mechanism the hallucination gate reuses.
-- [`.claude/rules/cross-artifact-review.md`](cross-artifact-review.md) — paper ↔ code dependency-graph pattern.
+- [`.zcode/references/orchestration-schemas.md`](../references/orchestration-schemas.md) — FINDING / SCORECARD / RUN_CONFIG / hallucination-gate contracts.
+- [`.zcode/references/agent-fleet.md`](../references/agent-fleet.md) — the reviewer fleet + model tiers.
+- [`.zcode/rules/plan-first-workflow.md`](plan-first-workflow.md) — when to enter plan mode before invoking a skill.
+- [`.zcode/rules/quality-gates.md`](quality-gates.md) — threshold definitions + the pre-commit hook.
+- [`.zcode/rules/post-flight-verification.md`](post-flight-verification.md) — the forked-verifier mechanism the hallucination gate reuses.
+- [`.zcode/rules/cross-artifact-review.md`](cross-artifact-review.md) — paper ↔ code dependency-graph pattern.

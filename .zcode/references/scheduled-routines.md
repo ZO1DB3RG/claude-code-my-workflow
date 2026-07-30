@@ -17,7 +17,7 @@ The loop-first half of the workflow: recurring scholarly chores that should run 
 
 ## Event-driven, not just scheduled
 
-The nightly reproducibility job is the *backstop*. The *immediate* signal is the [`claim-reconcile`](../hooks/claim-reconcile.py) PostToolUse hook: the moment an analysis script or `_outputs/` artifact changes, it flags the manuscript claims that depend on it as potentially stale and points you at `/audit-reproducibility` — so you catch drift during analysis, not the next morning. For *external* regenerations (you ran `Rscript` outside Claude), the harness `FileChanged` hook event can drive the same check; wire it in `.claude/settings.json` if your workflow regenerates outputs outside the tool layer.
+The nightly reproducibility job is the *backstop*. The *immediate* signal is the [`claim-reconcile`](../hooks/claim-reconcile.py) PostToolUse hook: the moment an analysis script or `_outputs/` artifact changes, it flags the manuscript claims that depend on it as potentially stale and points you at `/audit-reproducibility` — so you catch drift during analysis, not the next morning. For *external* regenerations (you ran `Rscript` outside Claude), the harness `FileChanged` hook event can drive the same check; wire it in `.zcode/settings.json` if your workflow regenerates outputs outside the tool layer.
 
 ## Setting one up
 
@@ -42,6 +42,6 @@ A precise cron expression (e.g. `0 6 * * *`) is applied via `/schedule update` *
 ## Cross-references
 
 - `/schedule` — create/list/run routines.
-- [`.claude/hooks/claim-reconcile.py`](../hooks/claim-reconcile.py) — the event-driven reconciliation hook.
-- [`.claude/rules/replication-protocol.md`](../rules/replication-protocol.md) — what the reproducibility routine checks.
-- [`.claude/rules/confidential-data.md`](../rules/confidential-data.md) — why unattended runs stay human-gated near restricted data.
+- [`.zcode/hooks/claim-reconcile.py`](../hooks/claim-reconcile.py) — the event-driven reconciliation hook.
+- [`.zcode/rules/replication-protocol.md`](../rules/replication-protocol.md) — what the reproducibility routine checks.
+- [`.zcode/rules/confidential-data.md`](../rules/confidential-data.md) — why unattended runs stay human-gated near restricted data.

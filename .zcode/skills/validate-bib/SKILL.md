@@ -50,7 +50,7 @@ master_supporting_docs/**/*.tex
 
 ### Bibliography location
 
-`Bibliography_base.bib` at repo root by default; override via CLAUDE.md.
+`Bibliography_base.bib` at repo root by default; override via AGENTS.md.
 
 ## Mode 2: Semantic (`--semantic`)
 
@@ -148,9 +148,9 @@ Gated behind `--cite-claim`. For the top-10 most-cited works per file, WebFetch 
 
 ## Cross-references
 
-- `.claude/skills/review-paper/SKILL.md` — pair for full pre-submission.
-- `.claude/skills/audit-reproducibility/SKILL.md` — numeric-claims counterpart.
-- `.claude/skills/verify-claims/SKILL.md` — citation **appropriateness** counterpart (does the cited paper support the claim?). This skill checks that a citation *exists and is well-formed*; `/verify-claims` checks that it *holds*.
+- `.zcode/skills/review-paper/SKILL.md` — pair for full pre-submission.
+- `.zcode/skills/audit-reproducibility/SKILL.md` — numeric-claims counterpart.
+- `.zcode/skills/verify-claims/SKILL.md` — citation **appropriateness** counterpart (does the cited paper support the claim?). This skill checks that a citation *exists and is well-formed*; `/verify-claims` checks that it *holds*.
 
 ## What this skill does NOT do
 

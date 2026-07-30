@@ -6,7 +6,6 @@ version: 1.0.0
 argument-hint: "[estimator(s) and DGP to study, or path to a script/paper to simulate from]"
 disable-model-invocation: true
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Edit", "Bash", "Task", "Monitor"]
-effort: high
 ---
 
 # `/simulation-study` — Monte Carlo Simulation Study
@@ -19,8 +18,8 @@ Design and run a Monte Carlo experiment that characterizes an estimator's finite
 
 ## Constraints
 
-- **Follow [`.claude/rules/simulation-conventions.md`](../../rules/simulation-conventions.md)** — the simulation contract (DGP, truth, estimand, MCSE) is non-negotiable.
-- **Follow [`.claude/rules/r-code-conventions.md`](../../rules/r-code-conventions.md)** for general R standards (header, `library()` at top, relative paths, numerical discipline).
+- **Follow [`.zcode/rules/simulation-conventions.md`](../../rules/simulation-conventions.md)** — the simulation contract (DGP, truth, estimand, MCSE) is non-negotiable.
+- **Follow [`.zcode/rules/r-code-conventions.md`](../../rules/r-code-conventions.md)** for general R standards (header, `library()` at top, relative paths, numerical discipline).
 - **Save the script** to `scripts/R/` with a numbered, descriptive name (e.g., `scripts/R/sim_twfe_vs_csdid.R`).
 - **Save outputs** (per-rep raw tibble, summary table, figures) to `scripts/R/_outputs/`.
 - **`saveRDS()` the per-replication raw results**, not just the summary — re-aggregation and the review pass need them.

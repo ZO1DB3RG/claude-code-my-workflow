@@ -35,4 +35,4 @@ A single specification is a point on a garden of forking paths. Make the robustn
 - A robustness check that only ever confirms the headline is theatre — report the spec where the result *weakens*, and interpret it.
 
 ## Cross-references
-- [`.claude/skills/review-paper/SKILL.md`](../skills/review-paper/SKILL.md) · [`.claude/skills/preregister/SKILL.md`](../skills/preregister/SKILL.md) · [`.claude/skills/power-analysis/SKILL.md`](../skills/power-analysis/SKILL.md) · [`.claude/rules/did-conventions.md`](did-conventions.md).
+- [`.zcode/skills/review-paper/SKILL.md`](../skills/review-paper/SKILL.md) · [`.zcode/skills/preregister/SKILL.md`](../skills/preregister/SKILL.md) · [`.zcode/skills/power-analysis/SKILL.md`](../skills/power-analysis/SKILL.md) · [`.zcode/rules/did-conventions.md`](did-conventions.md).

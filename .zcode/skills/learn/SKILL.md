@@ -46,10 +46,10 @@ Search for related skills to avoid duplication:
 
 ```bash
 # Check project skills
-ls .claude/skills/ 2>/dev/null
+ls .zcode/skills/ 2>/dev/null
 
 # Search for keywords
-grep -r -i "KEYWORD" .claude/skills/ 2>/dev/null
+grep -r -i "KEYWORD" .zcode/skills/ 2>/dev/null
 ```
 
 **Outcomes:**
@@ -59,7 +59,7 @@ grep -r -i "KEYWORD" .claude/skills/ 2>/dev/null
 
 ### PHASE 3: Create Skill
 
-Create the skill file at `.claude/skills/[skill-name]/SKILL.md`:
+Create the skill file at `.zcode/skills/[skill-name]/SKILL.md`:
 
 ```yaml
 ---
@@ -114,7 +114,7 @@ Before finalizing, verify:
 After creating the skill, report:
 
 ```
-✓ Skill created: .claude/skills/[name]/SKILL.md
+✓ Skill created: .zcode/skills/[name]/SKILL.md
   Trigger: [when to use]
   Problem: [what it solves]
 ```

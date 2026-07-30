@@ -7,7 +7,7 @@ allowed-tools: ["Read", "Grep", "Glob", "Task", "Write"]
 
 # /verify-claims — Chain-of-Verification on a Draft
 
-Fact-check a draft using the **Post-Flight Verification protocol** ([`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md)).
+Fact-check a draft using the **Post-Flight Verification protocol** ([`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md)).
 
 **Input:** `$ARGUMENTS` — path to a file containing the draft (markdown, .qmd, .tex, .md) or a shorthand pointer. Optional flags:
 
@@ -31,7 +31,7 @@ Implements the 4-step CoVe loop from Dhuliawala et al. 2023 ([arXiv:2309.11495](
 Confirm:
 - Draft file exists and is readable
 - At least one source pointer available (either `--source` or auto-detected from draft)
-- `claim-verifier` agent file exists at `.claude/agents/claim-verifier.md`
+- `claim-verifier` agent file exists at `.zcode/agents/claim-verifier.md`
 
 If any fail → surface the failure, do NOT proceed.
 
@@ -77,7 +77,7 @@ The forked agent runs the CoVe independent-answer step. It has never seen the dr
 
 The verifier returns a per-claim verdict in one of these severity tiers:
 
-- **HIGH-WARN** — fabricated reference (the cited paper doesn't exist at the named venue/year), draft claim directly contradicted by the source, or `not_found` retrieval that the verifier interprets as a hallucinated citation. **Gate-refuse** — these block `/commit` for any file `/verify-claims` was just run against, unless the user explicitly overrides with `--no-fail-closed` or sets `verifyClaims.allowHighWarn: true` in `.claude/settings.json`.
+- **HIGH-WARN** — fabricated reference (the cited paper doesn't exist at the named venue/year), draft claim directly contradicted by the source, or `not_found` retrieval that the verifier interprets as a hallucinated citation. **Gate-refuse** — these block `/commit` for any file `/verify-claims` was just run against, unless the user explicitly overrides with `--no-fail-closed` or sets `verifyClaims.allowHighWarn: true` in `.zcode/settings.json`.
 - **MED-WARN** — transient infrastructure / retrieval failure (paywall the verifier can normally bypass via cached metadata; DOI resolver timeout; partial PDF read). Surface for the author; do not gate-refuse.
 - **LOW-WARN** — source genuinely inaccessible (paywalled and not in cache; private dataset; pre-print server transient). Surface with `cannot-verify` flag; do not gate-refuse.
 - **EXPLAINED** (v2.0) — a numeric/directional contradiction the author has *pre-justified* with a concrete named alternative (different defensible edition, specification, sample, or rounding convention), passed to the verifier via the claim's `author_alternative` field. Surfaced with the evidence and the recorded reason; **non-gating**. The hard floor holds: a *fabricated* citation is never EXPLAINED, and a blank/vague alternative stays HIGH-WARN. This mirrors `audit-reproducibility`'s EXPLAINED disposition for numeric claims — a mismatch is not always a failure when a defensible alternative is named.
@@ -135,6 +135,6 @@ Expected output (abridged):
 
 ## Cross-references
 
-- [`.claude/agents/claim-verifier.md`](../../agents/claim-verifier.md) — the forked verifier.
-- [`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) — the protocol.
+- [`.zcode/agents/claim-verifier.md`](../../agents/claim-verifier.md) — the forked verifier.
+- [`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) — the protocol.
 - MEMORY.md `[LEARN:pattern]` on Chain-of-Verification vs critic-fixer vs cross-artifact review.

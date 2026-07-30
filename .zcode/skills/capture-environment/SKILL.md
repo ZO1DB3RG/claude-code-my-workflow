@@ -3,7 +3,6 @@ name: capture-environment
 description: Snapshot the computational environment for a replication package — detects the analysis stack (R / Stata / Python) and emits the right lockfiles (renv.lock + sessionInfo.txt, requirements.txt / environment.yml / uv.lock, Stata version + ado package list), records seeds and RNG kind, optionally writes a pinning Dockerfile, and produces a paste-ready "Computational requirements" block. Use when user says "capture the environment", "snapshot my dependencies", "pin the versions", "make a renv.lock / requirements.txt", "make this byte-reproducible", or before releasing a replication package to openICPSR / the AEA Data Editor.
 argument-hint: "[project-dir] [--docker] [--no-verify] (project-dir defaults to repo root)"
 allowed-tools: ["Read", "Grep", "Glob", "Write", "Bash"]
-effort: medium
 ---
 
 # `/capture-environment` — snapshot the computational environment
@@ -119,11 +118,11 @@ Pre-fill software/package/seed lines from the captured artifacts; leave runtime 
 
 ## Cross-references
 
-- [`.claude/rules/replication-protocol.md`](../../rules/replication-protocol.md) — the tolerance contract a pinned environment is meant to reproduce.
-- [`.claude/rules/r-code-conventions.md`](../../rules/r-code-conventions.md) — R seeding + output-path conventions this skill reads.
-- [`.claude/rules/stata-code-conventions.md`](../../rules/stata-code-conventions.md) — §3 `sessionInfo.txt` + `version`-pinning the Stata path mirrors.
-- [`.claude/rules/simulation-conventions.md`](../../rules/simulation-conventions.md) — L'Ecuyer streams for reproducible parallel/MC work.
-- [`.claude/rules/confidential-data.md`](../../rules/confidential-data.md) — when raw data is restricted, the *environment* still ships even though the data does not; coordinate the README's "data availability" section with this block.
+- [`.zcode/rules/replication-protocol.md`](../../rules/replication-protocol.md) — the tolerance contract a pinned environment is meant to reproduce.
+- [`.zcode/rules/r-code-conventions.md`](../../rules/r-code-conventions.md) — R seeding + output-path conventions this skill reads.
+- [`.zcode/rules/stata-code-conventions.md`](../../rules/stata-code-conventions.md) — §3 `sessionInfo.txt` + `version`-pinning the Stata path mirrors.
+- [`.zcode/rules/simulation-conventions.md`](../../rules/simulation-conventions.md) — L'Ecuyer streams for reproducible parallel/MC work.
+- [`.zcode/rules/confidential-data.md`](../../rules/confidential-data.md) — when raw data is restricted, the *environment* still ships even though the data does not; coordinate the README's "data availability" section with this block.
 - [`/audit-reproducibility`](../audit-reproducibility/SKILL.md) — consumes the `sessionInfo.txt` this skill produces; run it after.
 - [`/data-analysis`](../data-analysis/SKILL.md), [`/stata-replication`](../stata-replication/SKILL.md), [`/simulation-study`](../simulation-study/SKILL.md) — the pipelines whose environment this snapshots.
 - [AEA Data Editor checklist](https://aeadataeditor.github.io/) / [openICPSR](https://www.openicpsr.org/) / DCAS — the external standards this skill targets.

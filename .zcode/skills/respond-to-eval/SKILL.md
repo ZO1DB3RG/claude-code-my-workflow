@@ -3,7 +3,6 @@ name: respond-to-eval
 description: Turn student course evaluations (free-text + numeric) into an actionable teaching-improvement plan — the teaching analogue of /respond-to-referees. Clusters comments into themes, separates signal from noise, classifies each theme Keep / Change / Investigate / Out-of-scope, and drafts concrete changes mapped to the syllabus and slide decks. Use when user says "respond to my evals", "what do these course evaluations tell me", "turn my teaching feedback into a plan", or after a semester's evals arrive.
 argument-hint: "[eval-file(s)] [prior-plan-path] [--min-mentions N] [--no-verify]"
 allowed-tools: ["Read", "Write", "Grep", "Glob", "Bash", "Task"]
-effort: high
 ---
 
 # Respond to Evaluations
@@ -85,7 +84,7 @@ The plan is a deliverable, not a transient report, so it lives under `quality_re
 
 ### Phase 3.5: Post-Flight Verification (quotes + targets)
 
-The plan's hallucination-prone content is (a) verbatim quotes attributed to students and (b) "edit syllabus §X / LectureNN slide K" targets that must actually exist. Run the forked-verifier protocol in [`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md): spawn `claim-verifier` (`context: fork`) with the quotes + the eval source and the edit-targets + the syllabus/deck paths. Reconcile — a quote that isn't in the source, or a "slide K" that doesn't exist, is corrected or dropped before the plan is final. Opt-out: `--no-verify` (not recommended).
+The plan's hallucination-prone content is (a) verbatim quotes attributed to students and (b) "edit syllabus §X / LectureNN slide K" targets that must actually exist. Run the forked-verifier protocol in [`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md): spawn `claim-verifier` (`context: fork`) with the quotes + the eval source and the edit-targets + the syllabus/deck paths. Reconcile — a quote that isn't in the source, or a "slide K" that doesn't exist, is corrected or dropped before the plan is final. Opt-out: `--no-verify` (not recommended).
 
 ## Output / Report
 
@@ -114,10 +113,10 @@ If all themes are classified and every Change names a target, say `All themes cl
 
 ## Cross-references
 
-- [`.claude/skills/respond-to-referees/SKILL.md`](../respond-to-referees/SKILL.md) — the research analogue; this skill borrows its map-classify-respond shape and "signal to investigate, not auto-act" posture.
-- [`.claude/skills/pedagogy-review/SKILL.md`](../pedagogy-review/SKILL.md) — once a **Change** targets a specific deck, run pedagogy-review on it before re-teaching.
-- [`.claude/skills/create-lecture/SKILL.md`](../create-lecture/SKILL.md) — to execute deck-level changes the plan proposes.
-- [`.claude/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) — the forked-verifier protocol Phase 3.5 reuses.
+- [`.zcode/skills/respond-to-referees/SKILL.md`](../respond-to-referees/SKILL.md) — the research analogue; this skill borrows its map-classify-respond shape and "signal to investigate, not auto-act" posture.
+- [`.zcode/skills/pedagogy-review/SKILL.md`](../pedagogy-review/SKILL.md) — once a **Change** targets a specific deck, run pedagogy-review on it before re-teaching.
+- [`.zcode/skills/create-lecture/SKILL.md`](../create-lecture/SKILL.md) — to execute deck-level changes the plan proposes.
+- [`.zcode/rules/post-flight-verification.md`](../../rules/post-flight-verification.md) — the forked-verifier protocol Phase 3.5 reuses.
 - [`templates/skill-template.md`](../../../templates/skill-template.md) — house style for skills.
 
 ## What this skill does NOT do

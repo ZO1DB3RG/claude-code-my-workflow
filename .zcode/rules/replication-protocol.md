@@ -170,7 +170,7 @@ claims:
 ### Integration
 
 - **`/audit-reproducibility`** reads the passport at start, writes back after every claim audit. Failed claims are reported with their `id` and `location` so the author can find them in the manuscript instantly.
-- **`/commit`** reads the passport when a diff touches both `manuscript.tex` (or .qmd) and any `source_file` listed. If the passport contains any FAIL or STALE for a claim whose `source_file` is in the diff, `/commit` halts (advisory by default; gate-refuse if `--strict-passport` is set in `.claude/settings.json`). **EXPLAINED claims do not halt** — the author has already recorded a defensible named alternative.
+- **`/commit`** reads the passport when a diff touches both `manuscript.tex` (or .qmd) and any `source_file` listed. If the passport contains any FAIL or STALE for a claim whose `source_file` is in the diff, `/commit` halts (advisory by default; gate-refuse if `--strict-passport` is set in `.zcode/settings.json`). **EXPLAINED claims do not halt** — the author has already recorded a defensible named alternative.
 - **`/review-paper`** (default mode + `--peer`) appends a summary section to its report when the passport exists: `claims: N total, PASS: A, FAIL: B, EXPLAINED: E, STALE: C, UNVERIFIED: D`. Editors and referees know whether numeric claims have been independently verified at draft time — and EXPLAINED rows tell them which contested numbers already carry a documented justification.
 
 ### Inspiration

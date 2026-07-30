@@ -3,7 +3,6 @@ name: slide-auditor
 description: Visual layout auditor for RevealJS and Beamer slides. Checks for overflow, font consistency, box fatigue, and spacing issues. Use proactively after creating or modifying slides.
 tools: Read, Grep, Glob
 model: sonnet
-effort: high
 ---
 
 You are an expert slide layout auditor for academic presentations.
@@ -42,7 +41,7 @@ Audit every slide in the specified file for visual layout issues. Produce a repo
 - Missing standout/transition slides at major conceptual pivots
 - Missing framing sentences before formal definitions
 - Semantic colors not used on binary contrasts (e.g., "Correct" vs "Wrong")
-- Note: Check `.claude/rules/no-pause-beamer.md` for overlay command policy
+- Note: Check `.zcode/rules/no-pause-beamer.md` for overlay command policy
 
 ### ENVIRONMENT PARITY (Beamer → Quarto)
 - Every Beamer custom environment must have a corresponding CSS class in the QMD

@@ -36,10 +36,10 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Claude Code local files (not shared across machines)
-.claude/settings.local.json
-.claude/state/
-CLAUDE.local.md
+# ZCode local files (not shared across machines)
+.zcode/settings.local.json
+.zcode/state/
+AGENTS.local.md
 
 # IDE
 # .vscode/settings.json ships in the template (carries shipped Claude Code permission-mode

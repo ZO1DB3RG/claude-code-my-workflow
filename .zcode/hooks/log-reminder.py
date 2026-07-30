@@ -24,9 +24,9 @@ last entry (hashed in state), so a quiet turn does not spam the log.
 
 Fail-open: any error → exit 0, never blocks Claude on a hook bug.
 
-Usage (.claude/settings.json):
+Usage (.zcode/config.json):
     "Stop": [{ "hooks": [{ "type": "command",
-      "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/log-reminder.py" }] }]
+      "command": "python3 \"$ZCODE_PROJECT_DIR\"/.zcode/hooks/log-reminder.py" }] }]
 """
 
 from __future__ import annotations
@@ -42,12 +42,12 @@ from datetime import datetime
 
 
 def get_state_dir() -> Path:
-    project_dir = os.environ.get("CLAUDE_PROJECT_DIR", "")
+    project_dir = os.environ.get("ZCODE_PROJECT_DIR", "") or os.environ.get("CLAUDE_PROJECT_DIR", "")
     if not project_dir:
-        d = Path.home() / ".claude" / "sessions" / "default"
+        d = Path.home() / ".zcode" / "sessions" / "default"
     else:
         h = hashlib.md5(project_dir.encode()).hexdigest()[:8]
-        d = Path.home() / ".claude" / "sessions" / h
+        d = Path.home() / ".zcode" / "sessions" / h
     d.mkdir(parents=True, exist_ok=True)
     return d
 
@@ -113,7 +113,7 @@ def main() -> int:
     if hook_input.get("stop_hook_active", False):
         return 0
 
-    project_dir = os.environ.get("CLAUDE_PROJECT_DIR", "") or hook_input.get("cwd", "")
+    project_dir = os.environ.get("ZCODE_PROJECT_DIR", "") or os.environ.get("CLAUDE_PROJECT_DIR", "") or hook_input.get("cwd", "")
     if not project_dir or not Path(project_dir).is_dir():
         return 0
 

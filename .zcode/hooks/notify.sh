@@ -1,4 +1,8 @@
 #!/bin/bash
+# [DEPRECATED — ZCode adaptation] ZCode does NOT support a `Notification`
+# hook event (only 7 events). This hook is not wired in .zcode/config.json
+# and will not fire. Retained for reference.
+#
 # Cross-platform desktop notification when Claude needs attention
 # Triggers on: permission prompts, idle prompts, auth events
 set -uo pipefail

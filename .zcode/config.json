@@ -1,0 +1,58 @@
+{
+  "$comment": "ZCode workspace configuration. Adapted from the original Claude Code settings.json (preserved verbatim at .zcode/settings.json.claude-original). Key ZCode differences: (1) no `permissions` block exists — tool gating is per-skill/per-command `allowed-tools`, not a global allow/deny; (2) hooks are nested under `hooks.events.<Event>` and require `hooks.enabled: true`; (3) ZCode supports only 7 hook events — the original Notification, PreCompact, and SessionStart(compact|resume) hooks are dropped here; (4) env var is $ZCODE_PROJECT_DIR (the Claude name still works but ZCODE_ is canonical).",
+  "hooks": {
+    "enabled": true,
+    "events": {
+      "PreToolUse": [
+        {
+          "matcher": "Bash|Write|Edit|ApplyPatch",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 \"$ZCODE_PROJECT_DIR\"/.zcode/hooks/git-guardrails.py",
+              "timeout": 5
+            }
+          ]
+        }
+      ],
+      "PostToolUse": [
+        {
+          "matcher": "Bash|Agent",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 \"$ZCODE_PROJECT_DIR\"/.zcode/hooks/context-monitor.py",
+              "timeout": 5
+            }
+          ]
+        },
+        {
+          "matcher": "Write|Edit|ApplyPatch",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 \"$ZCODE_PROJECT_DIR\"/.zcode/hooks/claim-reconcile.py",
+              "timeout": 5
+            }
+          ]
+        }
+      ],
+      "Stop": [
+        {
+          "hooks": [
+            {
+              "type": "command",
+              "command": "python3 \"$ZCODE_PROJECT_DIR\"/.zcode/hooks/log-reminder.py",
+              "timeout": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "plansDirectory": "quality_reports/plans",
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"$ZCODE_PROJECT_DIR\"/.zcode/scripts/statusline.sh"
+  }
+}

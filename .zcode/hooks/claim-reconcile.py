@@ -22,7 +22,7 @@ PostToolUse output: exit 0 + JSON {"systemMessage", "hookSpecificOutput":
 
 For external regenerations (a user running Rscript outside Claude), the
 broader `FileChanged` event can drive the same logic — see
-.claude/references/scheduled-routines.md.
+.claude/references/scheduled-routines.md (now .zcode/references/scheduled-routines.md).
 """
 
 from __future__ import annotations
@@ -40,9 +40,9 @@ THROTTLE_S = 300
 
 
 def state_dir() -> Path:
-    pd = os.environ.get("CLAUDE_PROJECT_DIR", "")
+    pd = os.environ.get("ZCODE_PROJECT_DIR", "") or os.environ.get("CLAUDE_PROJECT_DIR", "")
     h = hashlib.md5(pd.encode()).hexdigest()[:8] if pd else "default"
-    d = Path.home() / ".claude" / "sessions" / h
+    d = Path.home() / ".zcode" / "sessions" / h
     d.mkdir(parents=True, exist_ok=True)
     return d
 
@@ -58,7 +58,7 @@ def main() -> int:
     if not fp or not WATCH.search(fp):
         return 0
 
-    project_dir = os.environ.get("CLAUDE_PROJECT_DIR", "") or data.get("cwd", "")
+    project_dir = os.environ.get("ZCODE_PROJECT_DIR", "") or os.environ.get("CLAUDE_PROJECT_DIR", "") or data.get("cwd", "")
     if not project_dir:
         return 0
     passports = sorted((Path(project_dir) / "quality_reports" / "passports").glob("*.yaml"))

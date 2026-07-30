@@ -55,15 +55,21 @@ def _env_int(name: str, default: int) -> int:
         return default
 
 
+def _project_dir() -> str:
+    """Resolve the project dir from the ZCode env var (with the Claude name
+    as a compatibility fallback — both are set and equivalent in ZCode)."""
+    return os.environ.get("ZCODE_PROJECT_DIR", "") or os.environ.get("CLAUDE_PROJECT_DIR", "")
+
+
 def get_session_dir() -> Path:
     """Get the session directory for storing cache files."""
-    project_dir = os.environ.get("CLAUDE_PROJECT_DIR", "")
+    project_dir = _project_dir()
     if not project_dir:
-        return Path.home() / ".claude" / "sessions" / "default"
+        return Path.home() / ".zcode" / "sessions" / "default"
 
     import hashlib
     project_hash = hashlib.md5(project_dir.encode()).hexdigest()[:8]
-    session_dir = Path.home() / ".claude" / "sessions" / project_hash
+    session_dir = Path.home() / ".zcode" / "sessions" / project_hash
     session_dir.mkdir(parents=True, exist_ok=True)
     return session_dir
 

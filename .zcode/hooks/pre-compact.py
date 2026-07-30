@@ -2,6 +2,12 @@
 """
 Pre-Compact State Capture Hook
 
+[DEPRECATED — ZCode adaptation] ZCode does NOT support a `PreCompact` hook
+event (only 7 events: SessionStart, UserPromptSubmit, PreToolUse,
+PermissionRequest, PostToolUse, PostToolUseFailure, Stop). This hook is
+therefore not wired in .zcode/config.json and will not fire. It is retained
+for reference / future re-enablement if ZCode adds a compaction event.
+
 Fires before context compaction to:
 1. Capture current state (active plan, current task, recent decisions)
    so post-compact-restore.py can surface it afterwards.

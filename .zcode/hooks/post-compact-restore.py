@@ -2,6 +2,12 @@
 """
 Post-Compact Context Restoration Hook
 
+[DEPRECATED — ZCode adaptation] Originally wired on SessionStart with
+matcher "compact|resume". ZCode's SessionStart matchers are
+startup|resume|clear|compact, so this *could* be re-wired, but it was
+dropped from .zcode/config.json during adaptation pending verification of
+ZCode's SessionStart payload shape. Retained for reference.
+
 Fires after compaction (SessionStart with source="compact") to restore context.
 Reads saved state from the session directory and prints it so Claude knows
 where it left off.

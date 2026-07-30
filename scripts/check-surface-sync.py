@@ -3,8 +3,8 @@
 Check cross-document count consistency for the template's public surfaces.
 
 Prevents the drift pattern that hit PRs #70, #76, #78 — where adding a skill
-(agent, rule, hook) updates `.claude/` but leaves stale counts in README,
-CLAUDE.md, the guide source, the rendered guide, or the landing page.
+(agent, rule, hook) updates `.zcode/` but leaves stale counts in README,
+AGENTS.md, the guide source, the rendered guide, or the landing page.
 
 Two kinds of check:
   1. COUNT assertions — prose like "13 agents, 27 skills, 21 rules" must
@@ -13,7 +13,7 @@ Two kinds of check:
      `<!-- surface-sync-table: <kind> -->` marker must have exactly one
      data row per item of <kind> on disk. This catches the drift the
      count check misses: e.g. the v1.5.0 peer-review trio that was added
-     to `.claude/` but left OUT of the README/CLAUDE.md skills tables for
+     to `.zcode/` but left OUT of the README/AGENTS.md skills tables for
      three releases (the counts were right; the table rows were stale).
 
 Run via `./scripts/check-surface-sync.sh` pre-commit, or `/commit` will
@@ -34,12 +34,12 @@ REPO = Path(__file__).resolve().parent.parent
 
 # Ground truth: count entries on disk.
 GROUND_TRUTH = {
-    "skills":       len(list((REPO / ".claude/skills").glob("*/SKILL.md"))),
-    "agents":       len(list((REPO / ".claude/agents").glob("*.md"))),
-    "rules":        len(list((REPO / ".claude/rules").glob("*.md"))),
+    "skills":       len(list((REPO / ".zcode/skills").glob("*/SKILL.md"))),
+    "agents":       len(list((REPO / ".zcode/agents").glob("*.md"))),
+    "rules":        len(list((REPO / ".zcode/rules").glob("*.md"))),
     "hooks":        (
-        len(list((REPO / ".claude/hooks").glob("*.py"))) +
-        len(list((REPO / ".claude/hooks").glob("*.sh")))
+        len(list((REPO / ".zcode/hooks").glob("*.py"))) +
+        len(list((REPO / ".zcode/hooks").glob("*.sh")))
     ),
 }
 
@@ -48,7 +48,7 @@ GROUND_TRUTH = {
 # The regex MUST have exactly one capture group that yields an integer.
 SURFACES = [
     REPO / "README.md",
-    REPO / "CLAUDE.md",
+    REPO / "AGENTS.md",
     REPO / "guide/workflow-guide.qmd",
     REPO / "docs/workflow-guide.html",
     REPO / "docs/index.html",

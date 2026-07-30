@@ -3,7 +3,7 @@
 # Nightly reproducibility-drift check (cron-able; no Claude/auth needed).
 #
 # A thin LOCAL equivalent of the "Reproducibility drift" Routine in
-# .claude/references/scheduled-routines.md, for users who prefer a machine
+# .zcode/references/scheduled-routines.md, for users who prefer a machine
 # cron over a managed Routine. It does NOT re-run analysis — it flags
 # passport claims whose source_file / output_file is newer than the claim's
 # last_verified_on (i.e. the number on disk may have moved since it was last

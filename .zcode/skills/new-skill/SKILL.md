@@ -2,7 +2,7 @@
 name: new-skill
 description: Scaffold a new skill that follows this repo's conventions — interviews for purpose, trigger phrases, and tool needs, then writes `.zcode/skills/<name>/SKILL.md` from the skill template with frontmatter and body that pass the integrity gates on first try. Use when user says "write a skill", "scaffold a skill", "create a new skill", "I keep doing X, make it a skill", "new slash command", or "turn this workflow into a skill". NOT for capturing a one-off session discovery — that is `/learn`.
 argument-hint: "[skill-name (kebab-case)] [--from-learn] [--dry-run]"
-allowed-tools: ["Read", "Write", "Glob", "Grep", "Bash"]
+allowed-tools: ["Read", "Write", "Glob", "Grep", "Bash", "Task"]
 disable-model-invocation: true
 ---
 

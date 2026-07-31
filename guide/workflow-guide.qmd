@@ -30,6 +30,30 @@ format:
         </style>
 ---
 
+::: {.callout-note appearance="simple" title="ZCode-adapted fork"}
+This is a **ZCode adaptation** of Pedro H. C. Sant'Anna's Claude Code workflow
+(see `MEMORY.md` → "ZCode Migration"). The workflow, skills, agents, and quality
+gates are unchanged in spirit; only the **runtime layer** was ported. Key
+differences from the upstream Claude Code guide below:
+
+- **Config:** `.zcode/config.json` (not `.claude/settings.json`); there is **no
+  `permissions` block** — gating is per-skill `allowed-tools`. Hooks nest under
+  `hooks.events.*` with `hooks.enabled: true`; only 7 hook events exist.
+- **Entry file:** `AGENTS.md` (not `CLAUDE.md`). Directory is `.zcode/`.
+- **Model:** a single configured model (GLM-5.2) — the Opus/Sonnet/Haiku tiers
+  in this guide are **role weights expressed via persona**, not model pins
+  (`.zcode/rules/model-routing.md`). The `effort:` axis does not exist.
+- **Fan-out:** uses ZCode's `Agent` tool (the harness aliases `Task` ↔ `Agent`).
+  Fresh/forked context is the **default** subagent behavior. Named specialists
+  are invoked via **persona injection** — see the `/invoke-agent` skill and
+  `.zcode/references/zcode-execution-overlay.md`. (The plugin `agents` field is
+  recorded-but-not-executed in this ZCode build, so custom `subagent_type`
+  values are not registered.)
+
+Anywhere this guide says `.claude/`, `CLAUDE.md`, `settings.json`, `Task`,
+`context: fork`, or names a Claude model tier, read it through that overlay.
+:::
+
 # Why This Workflow Exists {#sec-why}
 
 ## The Problem
@@ -43,20 +67,25 @@ If you've ever done serious academic work --- built lecture slides, drafted a re
 
 This workflow solves all of these problems. You describe what you want --- "translate Lecture 5 to Quarto," "review my paper before submission," or "analyze this dataset and produce publication-ready tables" --- and Claude handles the rest: plans the approach, implements it, runs [specialized reviewers](#sec-system), fixes issues, verifies quality, and presents results. Like a contractor who manages the entire job.
 
-## What Makes Claude Code Different
+## What Makes ZCode / Claude Code Different
 
-Claude Code runs on your computer with full access to your file system, terminal, and git. It works as a **CLI tool**, a **VS Code extension**, or through the **Claude Desktop app** --- same capabilities, same configuration, different interface. Here is what that enables:
+> This section describes the original Claude Code capabilities; in this ZCode
+> fork the same capabilities hold (ZCode is the agent runtime here). Read names
+> through the overlay at the top of this guide: `CLAUDE.md`→`AGENTS.md`,
+> `Task`→`Agent`, etc.
+
+ZCode/Claude Code runs on your computer with full access to your file system, terminal, and git. It works as a **CLI tool**, a **VS Code-style extension**, or through the **desktop app** --- same capabilities, same configuration, different interface. Here is what that enables:
 
 | Capability | What It Means for You |
 |-----------|----------------------|
 | Read & edit your files | Surgical edits to `.tex`, `.qmd`, `.R` files in place |
 | Run shell commands | Compile LaTeX, run R scripts, render Quarto --- directly |
 | Access git history | Commits, PRs, branches --- all from the conversation |
-| Persistent memory | CLAUDE.md + MEMORY.md survive across sessions |
+| Persistent memory | AGENTS.md + MEMORY.md survive across sessions |
 | Orchestrator runtime | Specific skills (`/qa-quarto`, `/review-paper --adversarial`, `/create-lecture`, …) run a real fan-out → reduce → judge → loop-until-dry runtime internally |
-| Multi-agent workflows | 18 specialized agents for proofreading, layout, pedagogy, code review, fact-checking, AI-voice auditing, simulation + R-package review |
+| Multi-agent workflows | 18 specialized agents (invoked via `/invoke-agent` + persona injection) for proofreading, layout, pedagogy, code review, fact-checking, AI-voice auditing, simulation + R-package review |
 | Quality review | Advisory scoring inside `/commit` (halt + ask to override); targets: 80 commit, 90 PR, 95 excellence |
-| CLI/headless mode | Run from scripts: `claude -p "compile all lectures"` |
+| CLI/headless mode | Run from scripts |
 | Browser bridge | Continue sessions on your phone via `/remote-control` |
 
 ::: {.callout-tip}
@@ -280,13 +309,13 @@ If you prefer to configure things yourself instead of letting Claude handle it:
 4. **Beamer environments** (your custom LaTeX environments)
 5. **CSS classes** (your Quarto theme classes)
 
-**Create your knowledge base** --- Open `.claude/rules/knowledge-base-template.md` and fill in:
+**Create your knowledge base** --- Open `.zcode/rules/knowledge-base-template.md` and fill in:
 
 1. **Notation registry** --- every symbol you use, where it's introduced, and anti-patterns
 2. **Applications database** --- datasets, papers, and R packages you reference
 3. **Design principles** --- what you've approved and what you've overridden
 
-**Configure permissions** --- Review `.claude/settings.json`. The template includes permissions for git, LaTeX, Quarto, R, and utility scripts. Add any additional tools you use.
+**Configure hooks** (ZCode) --- Review `.zcode/config.json`. Unlike Claude Code's `settings.json`, ZCode has **no `permissions` block** (tool gating is per-skill `allowed-tools`); hooks live under `hooks.events.*` with `hooks.enabled: true`. The template's hooks (git-guardrails, context-monitor, claim-reconcile, log-reminder) are already wired.
 
 **Test it:**
 
@@ -535,11 +564,13 @@ To customize, open `.claude/agents/domain-reviewer.md` and fill in:
 
 Understanding the configuration layers helps you customize the workflow and debug when things go wrong. Claude Code's power comes from five configuration layers that work together --- think of them as the operating system for your academic project.
 
-## CLAUDE.md --- Your Project's Constitution
+## AGENTS.md --- Your Project's Constitution
 
-`CLAUDE.md` is the single most important file. Claude reads it at the start of every session. But here is the critical insight: **Claude reliably follows about 100--150 custom instructions.** Your system prompt already uses ~50, leaving ~100--150 for your project. CLAUDE.md and always-on rules share this budget.
+> In ZCode this file is `AGENTS.md` (Claude Code called it `CLAUDE.md`). The role is identical.
 
-This means CLAUDE.md should be a **slim constitution** --- short directives and pointers, not comprehensive documentation. Aim for ~120 lines:
+`AGENTS.md` is the single most important file. The agent reads it at the start of every session. But here is the critical insight: **the model reliably follows about 100--150 custom instructions.** Your system prompt already uses ~50, leaving ~100--150 for your project. AGENTS.md and always-on rules share this budget.
+
+This means AGENTS.md should be a **slim constitution** --- short directives and pointers, not comprehensive documentation. Aim for ~120 lines:
 
 - **Core principles** --- 4--5 bullets (plan-first, verify-after, quality gates, LEARN tags)
 - **Folder structure** --- where everything lives
@@ -548,10 +579,10 @@ This means CLAUDE.md should be a **slim constitution** --- short directives and 
 - **Current state** --- what's done, what's in progress
 - **Skill quick reference** --- table of available slash commands
 
-Move everything else into `.claude/rules/` files (with path-scoping so they only load when relevant).
+Move everything else into `.zcode/rules/` files (with path-scoping so they only load when relevant).
 
 ```markdown
-# CLAUDE.MD --- My Course Development
+# AGENTS.md --- My Course Development
 
 **Project:** Econ 730 --- Causal Panel Data
 **Institution:** Emory University

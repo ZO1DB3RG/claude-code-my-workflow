@@ -82,7 +82,7 @@ fi
 echo ""
 
 echo -e "${BOLD}Claude Code hooks:${RESET}"
-hook_dir="$(dirname "$0")/../.claude/hooks"
+hook_dir="$(dirname "$0")/../.zcode/hooks"
 if [ -d "$hook_dir" ]; then
     non_exec=$(find "$hook_dir" -maxdepth 1 \( -name "*.py" -o -name "*.sh" \) ! -perm -u+x 2>/dev/null | wc -l | tr -d ' ')
     if [ "$non_exec" -eq 0 ]; then
@@ -90,11 +90,11 @@ if [ -d "$hook_dir" ]; then
         pass=$((pass + 1))
     else
         echo -e "  ${YELLOW}⚠${RESET} $non_exec hook script(s) not executable"
-        echo -e "    Fix: chmod +x .claude/hooks/*.py .claude/hooks/*.sh"
+        echo -e "    Fix: chmod +x .zcode/hooks/*.py .zcode/hooks/*.sh"
         warn=$((warn + 1))
     fi
 else
-    echo -e "  ${YELLOW}⚠${RESET} .claude/hooks/ directory not found (are you in the project root?)"
+    echo -e "  ${YELLOW}⚠${RESET} .zcode/hooks/ directory not found (are you in the project root?)"
     warn=$((warn + 1))
 fi
 

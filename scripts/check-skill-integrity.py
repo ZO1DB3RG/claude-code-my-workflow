@@ -157,7 +157,7 @@ def tools_invoked_in_body(body: str) -> set[str]:
 def check_tool_parity() -> list[tuple[str, str, str]]:
     """Return list of (severity, file, msg)."""
     findings: list[tuple[str, str, str]] = []
-    for skill_md in sorted(REPO.glob(".claude/skills/*/SKILL.md")):
+    for skill_md in sorted(REPO.glob(".zcode/skills/*/SKILL.md")):
         try:
             text = skill_md.read_text(encoding="utf-8")
         except (OSError, UnicodeError) as e:
@@ -230,7 +230,7 @@ def check_flag_parity() -> list[tuple[str, str, str]]:
     # documentation context (option-keywords) would double-fail many legit
     # skills that list flags only in a reference table without option verbs.
     any_code_flag_re = re.compile(r"`(--[a-z][a-z0-9-]*)`")
-    for skill_md in sorted(REPO.glob(".claude/skills/*/SKILL.md")):
+    for skill_md in sorted(REPO.glob(".zcode/skills/*/SKILL.md")):
         try:
             text = skill_md.read_text(encoding="utf-8")
         except (OSError, UnicodeError) as e:
@@ -335,12 +335,12 @@ def strip_code(text: str) -> str:
 def check_anchor_resolution() -> list[tuple[str, str, str]]:
     findings: list[tuple[str, str, str]] = []
     scan_roots = [
-        REPO / ".claude",
+        REPO / ".zcode",
         REPO / "guide",
         REPO / "templates",
         REPO / "CHANGELOG.md",
         REPO / "README.md",
-        REPO / "CLAUDE.md",
+        REPO / "AGENTS.md",
         REPO / "MEMORY.md",
         REPO / "TROUBLESHOOTING.md",
     ]
@@ -402,7 +402,7 @@ RULE_KEYWORDS: dict[str, list[str]] = {
     # authors — and a dead entry here misleads future maintainers.
     "post-flight-verification.md": ["claim-verifier", "Post-Flight"],
     "summary-parity.md": [],  # empty = explicitly skipped; applies to edits
-    # Add more as new rules ship that include `.claude/skills/*/SKILL.md`
+    # Add more as new rules ship that include `.zcode/skills/*/SKILL.md`
     # in their paths: or globs: frontmatter.
 }
 
@@ -415,7 +415,7 @@ def check_rule_skill_parity() -> list[tuple[str, str, str]]:
     keywords. Dead entries (scope targets non-skill files) yield nothing.
     """
     findings: list[tuple[str, str, str]] = []
-    for rule_md in sorted(REPO.glob(".claude/rules/*.md")):
+    for rule_md in sorted(REPO.glob(".zcode/rules/*.md")):
         rule_name = rule_md.name
         keywords = RULE_KEYWORDS.get(rule_name)
         if keywords is None or not keywords:
@@ -432,7 +432,7 @@ def check_rule_skill_parity() -> list[tuple[str, str, str]]:
         for pattern in scope:
             if not isinstance(pattern, str):
                 continue
-            if ".claude/skills/" not in pattern:
+            if ".zcode/skills/" not in pattern:
                 continue
             for skill_md in REPO.glob(pattern):
                 try:

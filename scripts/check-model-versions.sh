@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Flags SUPERSEDED Claude model versions that are presented as CURRENT in the
 # template's user-facing surfaces. The single source of truth is the
-# `<!-- CURRENT: ... -->` marker in .claude/references/model-versions.md.
+# `<!-- CURRENT: ... -->` marker in .zcode/references/model-versions.md.
 #
 # Historical references (CHANGELOG.md is excluded entirely) and explicit
 # "prior generation" / comparison / "or later" lines are allowed via markers.
@@ -16,7 +16,7 @@ if [ -z "$REPO" ] || [ ! -d "$REPO" ]; then
     exit 2
 fi
 
-SSOT="$REPO/.claude/references/model-versions.md"
+SSOT="$REPO/.zcode/references/model-versions.md"
 if [ ! -f "$SSOT" ]; then
     echo "check-model-versions: SSoT missing: $SSOT" >&2
     exit 2
@@ -31,13 +31,13 @@ fi
 # Current-state surfaces to scan (sources; rendered HTML is derived from the qmd).
 SURFACES=(
     "README.md"
-    "CLAUDE.md"
+    "AGENTS.md"
     "TROUBLESHOOTING.md"
     "MEMORY.md"
     "guide/workflow-guide.qmd"
     "docs/index.html"
-    ".claude/rules/model-routing.md"
-    ".claude/scripts/statusline.sh"
+    ".zcode/rules/model-routing.md"
+    ".zcode/scripts/statusline.sh"
 )
 
 # A line is allowed to name an older version if it carries one of these markers.
@@ -96,7 +96,7 @@ if [ "$drift" -ne 0 ]; then
     echo "MODEL-VERSION DRIFT: a superseded version is presented as current." >&2
     echo "Fix the surface to name the current version, or add an allow-marker" >&2
     echo "(e.g. 'prior generation', 'or later', a comparison) if the mention is intentional." >&2
-    echo "Source of truth: .claude/references/model-versions.md" >&2
+    echo "Source of truth: .zcode/references/model-versions.md" >&2
     exit 1
 fi
 

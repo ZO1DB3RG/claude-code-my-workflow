@@ -43,18 +43,32 @@ context: fork)` had: isolated fresh context, the specialist's full persona,
 and structured output. The only thing that changes is *where the persona
 comes from* — injected in the prompt instead of looked up by type name.
 
-## Plan A (optional, only if Plan B is insufficient)
+> **Preferred mechanism: the `/invoke-agent` skill** (`.zcode/skills/invoke-agent/`)
+> codifies this exact recipe. When a task or another skill needs a named
+> specialist, delegate to `/invoke-agent <name> "<task>"` rather than
+> hand-assembling the Agent call — it resolves the persona, picks the right
+> `subagent_type` (`Explore` for read-only reviewers, `general-purpose` for
+> writers), and composes the prompt in the order above. It also supports
+> fan-out (N specialists in parallel) and `--list` to print the roster.
 
-Package `.zcode/agents/` as a local plugin so the 18 specialists become real
-`subagent_type` values:
+## Plan A (does NOT work in this ZCode build — documented for honesty)
+
+The original idea was to package `.zcode/agents/` as a local plugin so the 18
+specialists become real `subagent_type` values:
 
 ```
 .zcode-plugin/plugin.json   # { "name": "academic-workflow-agents",
                              #    "agents": "agents" }
 ```
 
-Then `subagent_type: methods-referee` works directly. Not enabled by default —
-Plan B is lower-friction and achieves the same result.
+**This does not work.** The ZCode `diagnosing-plugins` skill (line 24-25) is
+explicit that the manifest `agents` field is **"recorded but not executed"** —
+it is parsed and stored but never registers subagent types. Verified: not a
+single plugin.json on disk (including Anthropic's own `feature-dev` and
+`plugin-dev`, which ship `agents/*.md` files) declares an `agents` field, and
+those shipped agent files are inert on this machine. So **persona injection
+(`/invoke-agent`) is the only working path** to use the specialists. If a
+future ZCode build executes the `agents` field, revisit.
 
 ## Constraint to honor
 

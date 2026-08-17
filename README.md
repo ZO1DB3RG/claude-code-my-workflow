@@ -147,7 +147,7 @@ It covers:
 
 The guide covers Claude Code's latest capabilities:
 
-- **Model lineup** — **Fable 5** (`claude-fable-5`, opt-in via `/model fable` or the `best` alias) is the most capable Claude Code model: Mythos-class, GA 2026-06-09, $10/$50 per MTok, 1M context (128k max output), built for long-horizon agentic work; it falls back to Opus 4.8 on flagged cyber/bio content and needs Claude Code ≥ 2.1.170. **Opus 4.8** (`claude-opus-4-8`) remains the API/account default (GA 2026-05-28, $5/$25 per MTok, 1M context, defaults to `high` effort) — and remains this template's routed high-judgment tier (see `model-routing.md` for why). Sonnet 4.6 is the workhorse (1M context); Haiku 4.5 the fast tier. Sonnet 4 + original Opus 4 retire 2026-06-15 → migrate to Sonnet 4.6 / Opus 4.8. *(Verified against Anthropic docs 2026-06-10.)*
+- **Model lineup** — **Fable 5** (`claude-fable-5`, opt-in via `/model fable` or the `best` alias) is the most capable Claude Code model: Mythos-class, GA 2026-06-09, $10/$50 per MTok, 1M context (128k max output), built for long-horizon agentic work; it falls back to Opus 4.8 on flagged cyber/bio content and needs Claude Code ≥ 2.1.170. **Opus 4.8** (`claude-opus-4-8`) remains the API/account default (GA 2026-05-28, $5/$25 per MTok, 1M context, defaults to `high` effort) — and remains this template's routed high-judgment tier (see `model-routing.md` for why). Sonnet 4.6 is the workhorse (1M context); Haiku 4.5 the fast tier. Sonnet 4 + original Opus 4 retire 2026-06-15 → migrate to Sonnet 4.6 / Opus 4.8. *(Verified against Anthropic docs 2026-06-10.)* <!-- model-allow: upstream Claude Code lineup, historical for this ZCode fork -->
 - **Effort levels** — `/effort` sets cost vs. thoroughness (`low` / `medium` / `high` / `xhigh` / `max`). **Opus 4.8 defaults to `high`** — its `high` does roughly what 4.7's `xhigh` did for fewer tokens, so reserve `xhigh` for extended exploration and `ultracode` (xhigh + dynamic workflows) for the largest autonomous runs.
 - **`/goal <verifiable condition>`** (v1.9.0; Anthropic May 2026) — keep working across turns until a fast model confirms the condition holds. Pairs with `/commit` quality gates for verified-end-state runs.
 - **`claude agents` dashboard** (v1.9.0; Anthropic May 2026) — single screen for parallel review work (`/review-paper --peer`, `/slide-excellence`).
@@ -188,7 +188,7 @@ This workflow is designed as a **single hub for an entire research program** —
 ## What's Included
 
 <details>
-<summary><strong>18 agents, 52 skills, 32 rules, 7 hooks</strong> (click to expand)</summary>
+<summary><strong>18 agents, 53 skills, 32 rules, 7 hooks</strong> (click to expand)</summary>
 
 ### Agents (`.claude/agents/`)
 
@@ -271,6 +271,7 @@ This workflow is designed as a **single hub for an entire research program** —
 | `/respond-to-eval` (v2.0) | Teaching analogue of `/respond-to-referees` — clusters course-eval comments into themes, weights by frequency (signal vs noise), classifies Keep / Change / Investigate / Out-of-scope, and drafts concrete changes mapped to the syllabus + slide decks; saves the plan to `quality_reports/teaching/` |
 | `/scaffold-exercises` (v2.0) | Scaffold a graded problem set across analytical/empirical/coding types, with worked solutions and "why this matters" explainers emitted to a separate solution key |
 | `/new-skill` (v2.0) | Scaffold a new skill that follows this repo's conventions — interviews for purpose, triggers, and tools, writes `.claude/skills/<name>/SKILL.md` from the template with frontmatter/body that pass `check-skill-integrity.py` first try, then reminds to add the surface-table rows |
+| `/invoke-agent` (zcode) | Invoke a specialist subagent by name via persona injection — loads the agent's persona from `.zcode/agents/<name>.md` and spawns ZCode's Agent tool (`Explore` for read-only reviewers, `general-purpose` for writers); supports `--list`, `--read-only`, and parallel fan-out |
 
 ### Research Workflow
 

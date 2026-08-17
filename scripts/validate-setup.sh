@@ -20,7 +20,7 @@ warn=0
 fail=0
 
 echo ""
-echo -e "${BOLD}Validating Claude Code Academic Workflow setup...${RESET}"
+echo -e "${BOLD}Validating ZCode Academic Workflow setup...${RESET}"
 echo ""
 
 check_required() {
@@ -50,9 +50,6 @@ check_optional() {
 }
 
 echo -e "${BOLD}Required tools:${RESET}"
-check_required "Claude Code"  "claude"   "https://claude.ai/install"
-check_required "XeLaTeX"      "xelatex"  "https://tug.org/texlive/ (or MacTeX: https://tug.org/mactex/)"
-check_required "Quarto"       "quarto"   "https://quarto.org/docs/get-started/"
 check_required "git"          "git"      "https://git-scm.com/downloads"
 check_required "Python 3"     "python3"  "https://python.org (needed for hooks)"
 echo ""
@@ -60,6 +57,29 @@ echo ""
 echo -e "${BOLD}Recommended tools:${RESET}"
 check_optional "R"            "R"        "https://www.r-project.org/"
 check_optional "GitHub CLI"   "gh"       "https://cli.github.com/"
+echo ""
+
+echo -e "${BOLD}Agent runtime (ZCode):${RESET}"
+# The workflow is driven by an agent runtime. A CLI on PATH is one form; the
+# ZCode desktop app (or a ZCode remote session driving this machine) also
+# counts and is NOT detectable here — so absence is a warning, never a failure.
+if command -v zcode >/dev/null 2>&1; then
+    echo -e "  ${GREEN}✓${RESET} ZCode CLI found: $(zcode --version 2>&1 | head -n1)"
+    pass=$((pass + 1))
+elif command -v claude >/dev/null 2>&1; then
+    echo -e "  ${GREEN}✓${RESET} agent CLI found on PATH: claude ($(claude --version 2>&1 | head -n1))"
+    warn=$((warn + 1))
+else
+    echo -e "  ${YELLOW}⚠${RESET} no agent CLI on PATH (zcode / claude)."
+    echo -e "    If you drive this repo from the ZCode desktop app or a ZCode remote"
+    echo -e "    session, this is fine — only a bare terminal needs a CLI."
+    warn=$((warn + 1))
+fi
+echo ""
+
+echo -e "${BOLD}Slides toolchain (skip if you only do papers / data analysis):${RESET}"
+check_optional "XeLaTeX"      "xelatex"  "https://tug.org/texlive/ (Beamer .tex only)"
+check_optional "Quarto"       "quarto"   "https://quarto.org/docs/get-started/ (RevealJS .qmd only)"
 echo ""
 
 echo -e "${BOLD}Git configuration:${RESET}"
@@ -81,7 +101,7 @@ else
 fi
 echo ""
 
-echo -e "${BOLD}Claude Code hooks:${RESET}"
+echo -e "${BOLD}ZCode hooks:${RESET}"
 hook_dir="$(dirname "$0")/../.zcode/hooks"
 if [ -d "$hook_dir" ]; then
     non_exec=$(find "$hook_dir" -maxdepth 1 \( -name "*.py" -o -name "*.sh" \) ! -perm -u+x 2>/dev/null | wc -l | tr -d ' ')
@@ -148,7 +168,7 @@ echo ""
 # Which tools did we actually find? Gate the next-step suggestions accordingly.
 # Use string flags (not command names) so shellcheck is happy and `if` bodies
 # read naturally.
-has_claude="false";  command -v claude  >/dev/null 2>&1 && has_claude="true"
+has_agent="false";   { command -v zcode >/dev/null 2>&1 || command -v claude >/dev/null 2>&1; } && has_agent="true"
 has_xelatex="false"; command -v xelatex >/dev/null 2>&1 && has_xelatex="true"
 has_quarto="false";  command -v quarto  >/dev/null 2>&1 && has_quarto="true"
 has_r="false";       command -v R       >/dev/null 2>&1 && has_r="true"
@@ -157,29 +177,30 @@ if [ "$fail" -gt 0 ]; then
     echo -e "${RED}Some required tools are missing.${RESET}"
     echo ""
     echo -e "${BOLD}What you CAN do right now:${RESET}"
-    if [ "$has_claude" = "true" ]; then
-        echo "  - Open Claude Code:                      claude"
-        echo ""
-        echo "  ${BOLD}Inside Claude Code${RESET} (these are slash-commands, NOT shell commands):"
-        if [ "$has_quarto" = "true" ]; then
-            echo "    /deploy HelloWorld         # render Quarto sample"
-        fi
-        if [ "$has_xelatex" = "true" ]; then
-            echo "    /compile-latex HelloWorld  # compile Beamer sample"
-        fi
-        if [ "$has_r" = "true" ]; then
-            echo "    /data-analysis             # orchestrate R analysis"
-        fi
-        if [ "$has_xelatex" != "true" ]; then
-            echo ""
-            echo "  (Beamer workflow disabled until you install XeLaTeX: https://tug.org/texlive/)"
-        fi
-        if [ "$has_quarto" != "true" ]; then
-            echo "  (Quarto deploy disabled until you install Quarto: https://quarto.org/docs/get-started/)"
-        fi
+    echo "  - Papers / data analysis need only: git + python3 + (R). Install those first."
+    if [ "$has_agent" = "true" ]; then
+        echo "  - Agent CLI on PATH:                     zcode / claude"
     else
-        echo "  - Install Claude Code first: https://claude.ai/install"
-        echo "    (Everything else in this template is orchestrated through Claude.)"
+        echo "  - Drive the repo from the ZCode desktop app or a ZCode remote session"
+        echo "    (no CLI needed on this machine in that case)."
+    fi
+    echo ""
+    echo "  ${BOLD}Inside the agent${RESET} (slash-commands, NOT shell commands):"
+    if [ "$has_r" = "true" ]; then
+        echo "    /data-analysis             # orchestrate R analysis (no LaTeX needed)"
+    fi
+    if [ "$has_quarto" = "true" ]; then
+        echo "    /deploy HelloWorld         # render Quarto sample"
+    fi
+    if [ "$has_xelatex" = "true" ]; then
+        echo "    /compile-latex HelloWorld  # compile Beamer sample"
+    fi
+    if [ "$has_xelatex" != "true" ]; then
+        echo ""
+        echo "  (Beamer workflow disabled until you install XeLaTeX: https://tug.org/texlive/)"
+    fi
+    if [ "$has_quarto" != "true" ]; then
+        echo "  (Quarto deploy disabled until you install Quarto: https://quarto.org/docs/get-started/)"
     fi
     echo ""
     echo -e "${BOLD}Next:${RESET} install the missing required tool(s) listed above, then re-run this script."
@@ -187,8 +208,15 @@ if [ "$fail" -gt 0 ]; then
 fi
 
 echo -e "${GREEN}Setup looks good!${RESET} Next steps:"
-echo "  1. Open Claude Code in this directory:  claude"
-echo "  2. Compile the sample deck:              /compile-latex HelloWorld"
-echo "  3. Deploy the Quarto sample:             /deploy HelloWorld"
+echo "  1. Open ZCode in this directory — it auto-loads .zcode/ + AGENTS.md"
+if [ "$has_xelatex" = "true" ]; then
+    echo "  2. Compile the sample deck:              /compile-latex HelloWorld"
+fi
+if [ "$has_quarto" = "true" ]; then
+    echo "  3. Deploy the Quarto sample:             /deploy HelloWorld"
+fi
+if [ "$has_r" = "true" ]; then
+    echo "  4. Or go straight to research:           /data-analysis \"<dataset or goal>\""
+fi
 echo ""
 exit 0
